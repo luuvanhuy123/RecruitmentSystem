@@ -1,5 +1,8 @@
 package recruitment.system.services;
 
-public class Services {
+import javax.ws.rs.Path;
 
+@Path("/services")
+public class Services {
+	
 }
