@@ -6,8 +6,12 @@ import recruitment.system.entities.Recruiter;
 import recruitment.system.entities.User;
 
 public interface SignInterface {
-	int login(User user);
-	boolean signInJob_Seeker(JobSeeker jobSeeker);
-	boolean signInRecruiter(Recruiter recruiter);
-	boolean signInManager(Admin admin);
+	//Check Login Website
+	public abstract int login(User user);
+	//Create New Account Of Job Seeker
+	public abstract boolean signInJob_Seeker(JobSeeker jobSeeker);
+	//Create New Account Of Recruiter
+	public abstract boolean signInRecruiter(Recruiter recruiter);
+	//Create New Account Of Manager
+	public abstract boolean signInManager(Admin admin);//I think you should move this abtracts methor to interface manager
 }
