@@ -40,28 +40,23 @@ public class LoginProcess extends ConnectDataBase implements SignInterface{
 
 
 	@Override
-	public boolean signInJob_Seeker(JobSeeker jobSeeker, String password, int type) {
+	public boolean signInJob_Seeker(JobSeeker jobSeeker) {
 		try {
 			resultset = statement.executeQuery("select * from user");
 			while(resultset.next()) {
-				if(resultset.getString("username").equals(jobSeeker.getUser().getUsername()))
+				if(resultset.getString("username").equals(jobSeeker.getEmail()))
 					return false;
 				else {
-					if(type == 1) {
-						statement.executeUpdate();
-					}
-					if(type == 2) {
-						
-					}
-					if(type == 3) {
-						
-					}
-					if(type == 4) {
-						
-					}
+					statement.executeUpdate("insert into user values ('" + jobSeeker.getEmail() + "','" + jobSeeker.getUser().getPassword()+"')");
+					statement.executeUpdate("insert into user_role values ('"+ jobSeeker.getEmail() + "',3)");
+					statement.executeUpdate("insert into job_seeker (email,name) values ('"+jobSeeker.getEmail() + "','" + jobSeeker.getName() +"')");
 					return true;
+					}
 				}
-			}
+			statement.executeUpdate("insert into user values ('" + jobSeeker.getEmail() + "','" + jobSeeker.getUser().getPassword()+"')");
+			statement.executeUpdate("insert into user_role values ('"+ jobSeeker.getEmail() + "',3)");
+			statement.executeUpdate("insert into job_seeker (email,name) values ('"+jobSeeker.getEmail() + "','" + jobSeeker.getName() +"')");
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -71,13 +66,70 @@ public class LoginProcess extends ConnectDataBase implements SignInterface{
 		return false;
 	}
 	@Override
-	public boolean signInRecruiter(Recruiter recruiter, String password, int type) {
-		// TODO Auto-generated method stub
+	public boolean signInRecruiter(Recruiter recruiter) {
+		String username = recruiter.getEmail();
+		String password = recruiter.getUser().getPassword();
+		String name = recruiter.getName();
+		String sex = recruiter.getSex();
+		String address = recruiter.getAddress();
+		String company_name = recruiter.getCompanyName();
+		String company_address = recruiter.getCompanyAddress();
+		String company_phone = recruiter.getCompanyPhone();
+		String company_information = recruiter.getCompanyInformation();
+		try {
+			resultset = statement.executeQuery("select * from user");
+			while(resultset.next()) {
+				if(resultset.getString("username").equals(username))
+					return false;
+				else {
+					statement.executeUpdate("insert into user values ('" + username + "','" + password+"')");
+					statement.executeUpdate("insert into user_role values ('"+ username + "',4)");
+					statement.executeUpdate("insert into recruiter values ('"+username + "','" + name +"','" + sex + "','" + address +"','" + company_name + "','"  + company_phone+"','" + company_information + "','"+ company_address + "')");
+					return true;
+					}
+				}
+			statement.executeUpdate("insert into user values ('" + username + "','" + password+"')");
+			statement.executeUpdate("insert into user_role values ('"+ username + "',4)");
+			statement.executeUpdate("insert into recruiter values ('"+username + "','" + name +"','" + sex + "','" + address +"','" + company_name + "','"  + company_phone+"','" + company_information + "','"+ company_address + "')");
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			finallyConnect();
+		}
 		return false;
 	}
 	@Override
-	public boolean signInManager(Admin admin, String password, int type) {
-		// TODO Auto-generated method stub
+	public boolean signInManager(Admin admin) {
+		String username = admin.getEmail();
+		String password = admin.getUser().getPassword();
+		String name = admin.getName();
+		String sex = admin.getSex();
+		String address = admin.getAddress();
+		String phone_number = admin.getPhoneNumber();
+		try {
+			resultset = statement.executeQuery("select * from user");
+			while(resultset.next()) {
+				if(resultset.getString("username").equals(username))
+					return false;
+				else {
+					statement.executeUpdate("insert into user values ('" + username + "','" + password+"')");
+					statement.executeUpdate("insert into user_role values ('"+ username + "',1)");
+					statement.executeUpdate("insert into admin values ('"+username + "','" + name +"','" + sex + "','" + address +"','" + phone_number + "')");
+					return true;
+					}
+				}
+			statement.executeUpdate("insert into user values ('" + username + "','" + password+"')");
+			statement.executeUpdate("insert into user_role values ('"+ username + "',1)");
+			statement.executeUpdate("insert into admin values ('"+username + "','" + name +"','" + sex + "','" + address +"','" + phone_number + "')");
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			finallyConnect();
+		}
 		return false;
 	}
 

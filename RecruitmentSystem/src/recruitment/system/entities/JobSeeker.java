@@ -20,7 +20,7 @@ public class JobSeeker implements Serializable {
 	@Lob
 	private byte[] cv;
 
-	private int name;
+	private String name;
 
 	//bi-directional one-to-one association to User
 	@OneToOne
@@ -30,7 +30,7 @@ public class JobSeeker implements Serializable {
 	public JobSeeker() {
 	}
 
-	public JobSeeker(String email, byte[] cv, int name, User user) {
+	public JobSeeker(String email, byte[] cv, String name, User user) {
 		super();
 		this.email = email;
 		this.cv = cv;
@@ -38,7 +38,7 @@ public class JobSeeker implements Serializable {
 		this.user = user;
 	}
 
-	public JobSeeker(String email, int name, User user) {
+	public JobSeeker(String email, String name, User user) {
 		super();
 		this.email = email;
 		this.name = name;
@@ -61,11 +61,11 @@ public class JobSeeker implements Serializable {
 		this.cv = cv;
 	}
 
-	public int getName() {
+	public String getName() {
 		return this.name;
 	}
 
-	public void setName(int name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 

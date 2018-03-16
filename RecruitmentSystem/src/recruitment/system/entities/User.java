@@ -54,7 +54,10 @@ public class User implements Serializable {
 
 	public User() {
 	}
-
+	public User(String username, String password) {
+		this.username = username;
+		this.password = password;
+	}
 	public User(String username, String password, Admin admin, List<JobPost> jobPosts, JobSeeker jobSeeker,
 			Recruiter recruiter, List<RecruiteregistrationHistory> recruiteregistrationHistories, List<Role> roles) {
 		super();
