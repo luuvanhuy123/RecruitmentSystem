@@ -7,7 +7,7 @@ import recruitment.system.entities.User;
 
 public interface SignInterface {
 	int login(User user);
-	boolean signInJob_Seeker(JobSeeker jobSeeker,int type);
-	boolean signInRecruiter(Recruiter recruiter,int type);
-	boolean signInManager(Admin admin,int type);
+	boolean signInJob_Seeker(JobSeeker jobSeeker,String password,int type);
+	boolean signInRecruiter(Recruiter recruiter,String password,int type);
+	boolean signInManager(Admin admin,String password,int type);
 }

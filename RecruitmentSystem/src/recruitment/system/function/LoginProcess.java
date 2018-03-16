@@ -38,8 +38,9 @@ public class LoginProcess extends ConnectDataBase implements SignInterface{
 		return -1;
 	}
 
+
 	@Override
-	public boolean signInJob_Seeker(JobSeeker jobSeeker, int type) {
+	public boolean signInJob_Seeker(JobSeeker jobSeeker, String password, int type) {
 		try {
 			resultset = statement.executeQuery("select * from user");
 			while(resultset.next()) {
@@ -69,15 +70,13 @@ public class LoginProcess extends ConnectDataBase implements SignInterface{
 		}
 		return false;
 	}
-
 	@Override
-	public boolean signInRecruiter(Recruiter recruiter, int type) {
+	public boolean signInRecruiter(Recruiter recruiter, String password, int type) {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 	@Override
-	public boolean signInManager(Admin admin, int type) {
+	public boolean signInManager(Admin admin, String password, int type) {
 		// TODO Auto-generated method stub
 		return false;
 	}
