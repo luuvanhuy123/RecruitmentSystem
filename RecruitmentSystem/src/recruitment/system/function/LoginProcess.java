@@ -40,7 +40,33 @@ public class LoginProcess extends ConnectDataBase implements SignInterface{
 
 	@Override
 	public boolean signInJob_Seeker(JobSeeker jobSeeker, int type) {
-		// TODO Auto-generated method stub
+		try {
+			resultset = statement.executeQuery("select * from user");
+			while(resultset.next()) {
+				if(resultset.getString("username").equals(jobSeeker.getUser().getUsername()))
+					return false;
+				else {
+					if(type == 1) {
+						statement.executeUpdate();
+					}
+					if(type == 2) {
+						
+					}
+					if(type == 3) {
+						
+					}
+					if(type == 4) {
+						
+					}
+					return true;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			finallyConnect();
+		}
 		return false;
 	}
 
