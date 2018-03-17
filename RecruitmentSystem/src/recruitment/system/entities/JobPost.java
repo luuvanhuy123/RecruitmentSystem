@@ -83,6 +83,17 @@ public class JobPost implements Serializable {
 	public JobPost() {
 	}
 
+	public JobPost(User user) {
+		super();
+		this.user = user;
+	}
+
+	public JobPost(String postsId, byte postsStatus) {
+		super();
+		this.postsId = postsId;
+		this.postsStatus = postsStatus;
+	}
+
 	public JobPost(String postsId, String benefit, String jobDescription, String jobName, String jobPosition,
 			String jobRecruitment, String location, String otherInformation, String post_date, byte postsStatus,
 			String postsType, String salary, User user, List<Career> careers,

@@ -37,6 +37,13 @@ public class RecruiteregistrationHistory implements Serializable {
 	public RecruiteregistrationHistory() {
 	}
 
+	public RecruiteregistrationHistory(String noties, String status, int type) {
+		super();
+		this.noties = noties;
+		this.status = status;
+		this.type = type;
+	}
+
 	public RecruiteregistrationHistory(RecruiteregistrationHistoryPK id, String noties, String status, int type,
 			JobPost jobPost, User user) {
 		super();

@@ -8,7 +8,7 @@ import recruitment.system.entities.JobSeeker;
 import recruitment.system.entities.Recruiter;
 import recruitment.system.interfaceinf.interfaceManager;
 
-public class ManagerPower implements interfaceManager {
+public class ManagerPower extends ConnectDataBase implements interfaceManager {
 
 	@Override
 	public List<Admin> getAllUser() {

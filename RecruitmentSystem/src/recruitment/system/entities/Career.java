@@ -28,13 +28,6 @@ public class Career implements Serializable {
 	public Career() {
 	}
 
-	public Career(int careerId, String careerName, List<JobPost> jobPosts) {
-		super();
-		this.careerId = careerId;
-		this.careerName = careerName;
-		this.jobPosts = jobPosts;
-	}
-
 	public int getCareerId() {
 		return this.careerId;
 	}

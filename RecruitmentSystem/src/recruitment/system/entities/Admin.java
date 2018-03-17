@@ -36,16 +36,6 @@ public class Admin implements Serializable {
 	public Admin() {
 	}
 
-	public Admin(String email, String address, String name, String phoneNumber, String sex, User user) {
-		super();
-		this.email = email;
-		this.address = address;
-		this.name = name;
-		this.phoneNumber = phoneNumber;
-		this.sex = sex;
-		this.user = user;
-	}
-
 	public String getEmail() {
 		return this.email;
 	}
