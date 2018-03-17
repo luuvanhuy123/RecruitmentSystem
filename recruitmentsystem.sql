@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 16, 2018 at 04:21 AM
+-- Generation Time: Mar 17, 2018 at 09:55 AM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 5.6.33
 
@@ -36,6 +36,13 @@ CREATE TABLE `admin` (
   `phone_number` text COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`email`, `name`, `sex`, `address`, `phone_number`) VALUES
+('huyluu', 'huyluu', 'F', 'huyluu', 'huyluu');
+
 -- --------------------------------------------------------
 
 --
@@ -46,6 +53,26 @@ CREATE TABLE `career` (
   `careerId` int(11) NOT NULL,
   `career_name` text COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `career`
+--
+
+INSERT INTO `career` (`careerId`, `career_name`) VALUES
+(1, 'QUẢN TRỊ KINH DOANH'),
+(2, 'CÔNG NGHỆ THÔNG TIN'),
+(3, 'KẾ TOÁN'),
+(4, 'MAKETING'),
+(5, 'MÔ GIỚI BẤT ĐỘNG SẢN'),
+(6, 'QUẢN TRỊ NHÀ HÀNG KHÁCH SẠN'),
+(7, 'BẢO HỘ LAO ĐỘNG'),
+(8, 'BÁC SĨ'),
+(9, 'BÁN HÀNG'),
+(10, 'BẤT ĐỘNG SẢN'),
+(11, 'BẢO HIỂM'),
+(12, 'TÀI CHÍNH NGÂN HÀNG'),
+(13, 'CƠ KHÍ'),
+(14, 'DƯỢC SĨ');
 
 -- --------------------------------------------------------
 
@@ -64,9 +91,10 @@ CREATE TABLE `job_posts` (
   `other_information` text COLLATE utf8_bin,
   `location` text COLLATE utf8_bin NOT NULL,
   `post date` text COLLATE utf8_bin NOT NULL,
-  `posts_type` varchar(100) COLLATE utf8_bin NOT NULL,
-  `posts_status` tinyint(1) NOT NULL,
-  `username` varchar(100) COLLATE utf8_bin NOT NULL
+  `posts_type` int(11) NOT NULL,
+  `posts_status` int(11) NOT NULL,
+  `username` varchar(100) COLLATE utf8_bin NOT NULL,
+  `careerId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
@@ -77,20 +105,16 @@ CREATE TABLE `job_posts` (
 
 CREATE TABLE `job_seeker` (
   `email` varchar(100) COLLATE utf8_bin NOT NULL,
-  `name` int(11) NOT NULL,
+  `name` text COLLATE utf8_bin NOT NULL,
   `CV` blob
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `posts_career`
+-- Dumping data for table `job_seeker`
 --
 
-CREATE TABLE `posts_career` (
-  `posts_id` bigint(20) NOT NULL,
-  `career_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+INSERT INTO `job_seeker` (`email`, `name`, `CV`) VALUES
+('luuvanhuy123@gmail.com', 'luu van huy', NULL);
 
 -- --------------------------------------------------------
 
@@ -104,10 +128,17 @@ CREATE TABLE `recruiter` (
   `sex` char(1) COLLATE utf8_bin NOT NULL,
   `address` text COLLATE utf8_bin NOT NULL,
   `company_name` text COLLATE utf8_bin NOT NULL,
-  `company_address` int(11) NOT NULL,
   `company_phone` text COLLATE utf8_bin NOT NULL,
-  `company_information` text COLLATE utf8_bin NOT NULL
+  `company_information` text COLLATE utf8_bin NOT NULL,
+  `company_address` text COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `recruiter`
+--
+
+INSERT INTO `recruiter` (`email`, `name`, `sex`, `address`, `company_name`, `company_phone`, `company_information`, `company_address`) VALUES
+('admin', 'admin', 'F', 'admin', 'admin', 'admin', 'admin', 'admin');
 
 -- --------------------------------------------------------
 
@@ -141,8 +172,8 @@ CREATE TABLE `role` (
 INSERT INTO `role` (`roleId`, `role_name`) VALUES
 (1, 'admin'),
 (2, 'manager'),
-(3, 'job_seeker'),
-(4, 'reruiter');
+(3, 'joob seeker'),
+(4, 'recruiter');
 
 -- --------------------------------------------------------
 
@@ -155,6 +186,15 @@ CREATE TABLE `user` (
   `password` varchar(100) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`username`, `password`) VALUES
+('admin', 'admin'),
+('huyluu', 'huyluu'),
+('luuvanhuy123@gmail.com', '123');
+
 -- --------------------------------------------------------
 
 --
@@ -163,8 +203,17 @@ CREATE TABLE `user` (
 
 CREATE TABLE `user_role` (
   `username` varchar(100) COLLATE utf8_bin NOT NULL,
-  `rolenid` int(11) NOT NULL
+  `roleId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `user_role`
+--
+
+INSERT INTO `user_role` (`username`, `roleId`) VALUES
+('admin', 4),
+('huyluu', 1),
+('luuvanhuy123@gmail.com', 3);
 
 --
 -- Indexes for dumped tables
@@ -187,7 +236,8 @@ ALTER TABLE `career`
 --
 ALTER TABLE `job_posts`
   ADD PRIMARY KEY (`posts_id`),
-  ADD KEY `fk_postsjob_user` (`username`);
+  ADD KEY `fk_postsjob_user` (`username`),
+  ADD KEY `fk_postsjob_career` (`careerId`);
 
 --
 -- Indexes for table `job_seeker`
@@ -196,18 +246,10 @@ ALTER TABLE `job_seeker`
   ADD PRIMARY KEY (`email`);
 
 --
--- Indexes for table `posts_career`
---
-ALTER TABLE `posts_career`
-  ADD PRIMARY KEY (`posts_id`,`career_id`),
-  ADD KEY `fk_postcar_car` (`career_id`);
-
---
 -- Indexes for table `recruiter`
 --
 ALTER TABLE `recruiter`
-  ADD PRIMARY KEY (`email`),
-  ADD KEY `fk_recruiter_location` (`company_address`);
+  ADD PRIMARY KEY (`email`);
 
 --
 -- Indexes for table `recruiteregistration_history`
@@ -232,8 +274,8 @@ ALTER TABLE `user`
 -- Indexes for table `user_role`
 --
 ALTER TABLE `user_role`
-  ADD PRIMARY KEY (`username`,`rolenid`),
-  ADD KEY `fk_userrole_role` (`rolenid`);
+  ADD PRIMARY KEY (`username`,`roleId`),
+  ADD KEY `fk_userrole_role` (`roleId`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -243,7 +285,7 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT for table `job_posts`
 --
 ALTER TABLE `job_posts`
-  MODIFY `posts_id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `posts_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
@@ -259,6 +301,7 @@ ALTER TABLE `admin`
 -- Constraints for table `job_posts`
 --
 ALTER TABLE `job_posts`
+  ADD CONSTRAINT `fk_postsjob_career` FOREIGN KEY (`careerId`) REFERENCES `career` (`careerId`),
   ADD CONSTRAINT `fk_postsjob_user` FOREIGN KEY (`username`) REFERENCES `user` (`username`);
 
 --
@@ -266,13 +309,6 @@ ALTER TABLE `job_posts`
 --
 ALTER TABLE `job_seeker`
   ADD CONSTRAINT `fk_jobseeker_user` FOREIGN KEY (`email`) REFERENCES `user` (`username`);
-
---
--- Constraints for table `posts_career`
---
-ALTER TABLE `posts_career`
-  ADD CONSTRAINT `fk_postcar_car` FOREIGN KEY (`career_id`) REFERENCES `career` (`careerId`),
-  ADD CONSTRAINT `fk_postcar_post` FOREIGN KEY (`posts_id`) REFERENCES `job_posts` (`posts_id`);
 
 --
 -- Constraints for table `recruiter`
@@ -291,7 +327,7 @@ ALTER TABLE `recruiteregistration_history`
 -- Constraints for table `user_role`
 --
 ALTER TABLE `user_role`
-  ADD CONSTRAINT `fk_userrole_role` FOREIGN KEY (`rolenid`) REFERENCES `role` (`roleId`),
+  ADD CONSTRAINT `fk_userrole_role` FOREIGN KEY (`roleId`) REFERENCES `role` (`roleId`),
   ADD CONSTRAINT `fk_userrole_user` FOREIGN KEY (`username`) REFERENCES `user` (`username`);
 COMMIT;
 
