@@ -20,13 +20,22 @@ public class ConnectDataBase {
 		try {
 			Class.forName(classname);
 			connection = DriverManager.getConnection(urlDataBase,usernameDB,passwordDB);
-			statement = connection.createStatement();
+//			statement = connection.createStatement();
 			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	protected void finallyConnect() {
+	protected ResultSet resultset(String sql){
+		try {
+			statement = connection.createStatement();
+			resultset=statement.executeQuery(sql);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return resultset;
+	}
+	protected void finallyConnect(ResultSet resultset) {
 		try {
 			if(resultset!=null)
 				resultset.close();

@@ -10,7 +10,7 @@ import recruitment.system.entities.Recruiter;
 public interface interfaceManager {
 	
 	// Get All List Of Table DataBase Admin
-	public abstract List<Admin> getAllUser();
+	public abstract List<Admin> getAllManager();
 
 	// Get All List Of Table Database Job Seeker
 	public abstract List<JobSeeker> getAllJobSeeker();

@@ -58,6 +58,13 @@ public class User implements Serializable {
 		this.username = username;
 		this.password = password;
 	}
+	
+	public User(String username, String password, List<Role> roles) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.roles = roles;
+	}
 	public User(String username, String password, Admin admin, List<JobPost> jobPosts, JobSeeker jobSeeker,
 			Recruiter recruiter, List<RecruiteregistrationHistory> recruiteregistrationHistories, List<Role> roles) {
 		super();
@@ -161,6 +168,10 @@ public class User implements Serializable {
 
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
+	}
+	@Override
+	public String toString() {
+		return "User [username=" + username + ", password=" + password + ", roles=" + roles + "]";
 	}
 
 }

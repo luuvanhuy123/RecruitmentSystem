@@ -28,6 +28,11 @@ public class Role implements Serializable {
 	public Role() {
 	}
 
+	public Role(String roleName) {
+		super();
+		this.roleName = roleName;
+	}
+
 	public int getRoleId() {
 		return this.roleId;
 	}
@@ -50,6 +55,11 @@ public class Role implements Serializable {
 
 	public void setUsers(List<User> users) {
 		this.users = users;
+	}
+
+	@Override
+	public String toString() {
+		return "Role [roleId=" + roleId + ", roleName=" + roleName + "]";
 	}
 
 }

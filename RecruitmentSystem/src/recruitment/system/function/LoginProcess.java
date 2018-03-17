@@ -14,8 +14,10 @@ public class LoginProcess extends ConnectDataBase implements SignInterface{
 	}
 	@Override
 	public int login(User user) {
+		ResultSet resultSet=null;
 		try {
-			resultset = statement.executeQuery("select * from user");
+			//resultset = statement.executeQuery("select * from user");
+			resultSet=resultset("select * from user");
 			String _username = "";
 			String _password = "";
 			while(resultset.next()) {
@@ -33,7 +35,7 @@ public class LoginProcess extends ConnectDataBase implements SignInterface{
 			e.printStackTrace();
 		}
 		finally {
-			finallyConnect();
+			finallyConnect(resultset);
 		}
 		return -1;
 	}
@@ -41,8 +43,10 @@ public class LoginProcess extends ConnectDataBase implements SignInterface{
 
 	@Override
 	public boolean signInJob_Seeker(JobSeeker jobSeeker) {
+		ResultSet resultSet=null;
 		try {
-			resultset = statement.executeQuery("select * from user");
+			//resultset = statement.executeQuery("select * from user");
+			resultSet=resultset("select * from user");
 			while(resultset.next()) {
 				if(resultset.getString("username").equals(jobSeeker.getEmail()))
 					return false;
@@ -61,7 +65,7 @@ public class LoginProcess extends ConnectDataBase implements SignInterface{
 			e.printStackTrace();
 		}
 		finally {
-			finallyConnect();
+			finallyConnect(resultset);
 		}
 		return false;
 	}
@@ -76,8 +80,10 @@ public class LoginProcess extends ConnectDataBase implements SignInterface{
 		String company_address = recruiter.getCompanyAddress();
 		String company_phone = recruiter.getCompanyPhone();
 		String company_information = recruiter.getCompanyInformation();
+		ResultSet resultSet=null;
 		try {
-			resultset = statement.executeQuery("select * from user");
+//			resultset = statement.executeQuery("select * from user");
+			resultSet=resultset("select * from user");
 			while(resultset.next()) {
 				if(resultset.getString("username").equals(username))
 					return false;
@@ -96,7 +102,7 @@ public class LoginProcess extends ConnectDataBase implements SignInterface{
 			e.printStackTrace();
 		}
 		finally {
-			finallyConnect();
+			finallyConnect(resultset);
 		}
 		return false;
 	}
@@ -108,8 +114,10 @@ public class LoginProcess extends ConnectDataBase implements SignInterface{
 		String sex = admin.getSex();
 		String address = admin.getAddress();
 		String phone_number = admin.getPhoneNumber();
+		ResultSet resultset=null;
 		try {
-			resultset = statement.executeQuery("select * from user");
+//			resultset = statement.executeQuery("select * from user");
+			resultset=resultset("select * from user");
 			while(resultset.next()) {
 				if(resultset.getString("username").equals(username))
 					return false;
@@ -128,7 +136,7 @@ public class LoginProcess extends ConnectDataBase implements SignInterface{
 			e.printStackTrace();
 		}
 		finally {
-			finallyConnect();
+			finallyConnect(resultset);
 		}
 		return false;
 	}
