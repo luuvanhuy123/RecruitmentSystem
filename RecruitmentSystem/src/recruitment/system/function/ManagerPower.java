@@ -2,6 +2,7 @@ package recruitment.system.function;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import database.query.method.Query;
@@ -24,61 +25,62 @@ public class ManagerPower extends ConnectDataBase implements interfaceManager {
 	@Override
 	public List<Admin> getAllManager() {
 		ArrayList<Admin> listAllManager = new ArrayList<>();
-		String queryAdmin = query.selectAll("admin");
-		String queryUser = query.selectAll("user");
-		String queryUserRole = query.selectAll("user_role");
-		String queryRole = query.selectAll("role");
-		ResultSet result = null;
-		ResultSet r1 = null;
-		ResultSet r2 = null;
-		ResultSet r3 = null;
-		int roleIdTableUser_Role;
-		User user = new User();
-		Admin manager;
+		ArrayList<Role> listRoles = null;
+		String query = "SELECT admin.email, admin.name, admin.sex, admin.address, admin.phone_number, USER.username, USER.password, user_role.roleid, role.role_name FROM admin, USER, user_role, role WHERE admin.email = USER.username AND USER.username = user_role.username AND user_role.roleid = role.roleId";
+		String email = null;
+		String name = null;
+		String address = null;
+		String sex = null;
+		String phoneNumber = null;
+		String username = null;
+		String password = null;
+		int roleId;
+		String roleName;
+		int i;
+		ResultSet resultSet = null;
 		try {
-			result = resultset(queryAdmin);
-			r1 = resultset(queryUser);
-			r2 = resultset(queryUserRole);
-			r3 = resultset(queryRole);
-			while (result.next()) {
-				String email = result.getString("email");
-				String name = result.getString("name");
-				String address = result.getString("address");
-				String sex = result.getString("sex");
-				String phoneNumber = result.getString("phone_number");
-				while (r1.next()) {
-					String username = r1.getString("username");
-					String password = r1.getString("password");
-					if (email.equals(username)) {
-						user.setUsername(username);
-						user.setPassword(password);
-					}
-					while (r2.next()) {
-						roleIdTableUser_Role = r2.getInt("roleid");
-						while (r3.next()) {
-							int roleIdTableRole = r3.getInt("roleid");
-							String roleName = r3.getString("role_name");
-							if (roleIdTableUser_Role == roleIdTableRole) {
-								Role roles = new Role();
-								List<Role> listRoleName = new ArrayList<>();
-								roles.setRoleName(roleName);
-								listRoleName.add(roles);
-								user.setRoles(listRoleName);
+			resultSet = resultset(query);
+			while (resultSet.next()) {
+				email = resultSet.getString("email");
+				name = resultSet.getString("name");
+				sex = resultSet.getString("sex");
+				address = resultSet.getString("address");
+				phoneNumber = resultSet.getString("phone_number");
+				username = resultSet.getString("username");
+				password = resultSet.getString("password");
+				roleName = resultSet.getString("role_name");
+				roleId = resultSet.getInt("roleid");
+				Role roleList = new Role(roleId, roleName);
+				listRoles = new ArrayList<>();
+				listRoles.add(roleList);
+				User user = new User(username, password, listRoles);
+				for (i = 0; i < listAllManager.size(); i++) {
+					if (listAllManager.get(i).getEmail().equals(email)) {
+						if(listAllManager.get(i).getUser().getRoles().size()<2){
+							 Role roleAdd = new Role(listAllManager.get(i).getUser().getRoles().get(i).getRoleId(),listAllManager.get(i).getUser().getRoles().get(i).getRoleName());
+							listRoles.add(roleAdd);
+						}
+						else{
+							for(int j=listAllManager.get(i).getUser().getRoles().size()-1;j>=0;j--){
+								Role roleAdd = new Role(listAllManager.get(i).getUser().getRoles().get(j).getRoleId(),listAllManager.get(i).getUser().getRoles().get(j).getRoleName());
+								listRoles.add(roleAdd);
 							}
 						}
-					}
-					manager = new Admin(email, address, username, phoneNumber, sex, user);
-					listAllManager.add(manager);
-				}
+						listAllManager.remove(i);
 
+					}
+
+				}
+				Admin manager = new Admin(email, address, name, phoneNumber, sex, user);
+				listAllManager.add(manager);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			finallyConnect(result);
-			finallyConnect(r1);
-			finallyConnect(r2);
-			finallyConnect(r3);
+			finallyConnect(resultSet);
+			// finallyConnect(r1);
+			// finallyConnect(r2);
+			// finallyConnect(r3);
 		}
 		return listAllManager;
 	}
@@ -153,7 +155,7 @@ public class ManagerPower extends ConnectDataBase implements interfaceManager {
 	@Override
 	public int statisticsAdmin() {
 		// TODO Auto-generated method stub
-		return 0;
+		return getAllManager().size();
 	}
 
 	@Override

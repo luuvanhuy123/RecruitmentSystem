@@ -33,6 +33,12 @@ public class Role implements Serializable {
 		this.roleName = roleName;
 	}
 
+	public Role(int roleId, String roleName) {
+		super();
+		this.roleId = roleId;
+		this.roleName = roleName;
+	}
+
 	public int getRoleId() {
 		return this.roleId;
 	}
