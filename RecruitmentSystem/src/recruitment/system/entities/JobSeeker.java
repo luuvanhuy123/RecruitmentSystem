@@ -1,6 +1,8 @@
 package recruitment.system.entities;
 
 import java.io.Serializable;
+import java.util.Arrays;
+
 import javax.persistence.*;
 
 
@@ -38,9 +40,9 @@ public class JobSeeker implements Serializable {
 		this.user = user;
 	}
 
-	public JobSeeker(String email, String name, User user) {
+	public JobSeeker(String email,String name, User user) {
 		super();
-		this.email = email;
+		this.email=email;
 		this.name = name;
 		this.user = user;
 	}
@@ -76,5 +78,13 @@ public class JobSeeker implements Serializable {
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+	@Override
+	public String toString() {
+		return "JobSeeker [email=" + email + ", name=" + name + ", user=" + user.User() + "]";
+	}
+
+
+	
 
 }

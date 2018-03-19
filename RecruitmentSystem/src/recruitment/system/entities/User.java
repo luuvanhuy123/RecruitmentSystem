@@ -173,5 +173,9 @@ public class User implements Serializable {
 	public String toString() {
 		return "User [username=" + username + ", password=" + password + ", roles=" + roles + "]";
 	}
+	public String User(){
+		return "User [password=" + password + "]";
+
+	}
 
 }

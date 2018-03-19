@@ -33,7 +33,6 @@ public class UserPower extends ConnectDataBase implements InterfaceUser{
 		ArrayList<JobPost>listJobPost=new ArrayList<>();
 		try {
 			
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

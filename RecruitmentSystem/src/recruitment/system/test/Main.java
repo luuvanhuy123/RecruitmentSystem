@@ -28,12 +28,28 @@ public class Main {
 //		System.out.println(new LoginProcess().login(new User("0","0")));
 //		new LoginProcess().signInManager(admin);
 		 //end test functions of interface signinterface
+		/*Test function change Status jobpost*/
 //		UserPower user=new UserPower();
 //		JobPost jp=new JobPost("1",(byte)8);
 //		System.out.println(user.changeStatus_Jobpost(jp));
+		/*test function get All List Admin,JobSeeker,Recruiter*/
 		ManagerPower mn=new ManagerPower();
-		System.out.println(mn.getAllManager());
-		//System.out.println(mn.statisticsAdmin());
+//		System.out.println(mn.getAllManager());
+//		System.out.println(mn.getAllJobSeeker());
+//		System.out.println(mn.getAllRecruiter());
+//		Admin admin=new Admin();
+//		admin.setAddress("District 7");
+//		System.out.println(mn.searchManager(admin));
+
+//		JobSeeker jp=new JobSeeker();
+//		jp.setName("TuanTk");
+//		jp.setEmail("khanhtuan623@gmail.com");
+//		System.out.println(mn.searchJobSeeker(jp));
+		
+		System.out.println(mn.statisticsUser());
+//		System.out.println(mn.statisticsAdmin());
+//		System.out.println(mn.statisticsJobSeeker());
+//		System.out.println(mn.statisticsRecruiter());
 	}
 
 }

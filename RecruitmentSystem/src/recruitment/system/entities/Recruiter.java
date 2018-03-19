@@ -62,6 +62,19 @@ public class Recruiter implements Serializable {
 		this.user = user;
 	}
 
+	public Recruiter(String address, String companyAddress, String companyInformation, String companyName,
+			String companyPhone, String name, String sex, User user) {
+		super();
+		this.address = address;
+		this.companyAddress = companyAddress;
+		this.companyInformation = companyInformation;
+		this.companyName = companyName;
+		this.companyPhone = companyPhone;
+		this.name = name;
+		this.sex = sex;
+		this.user = user;
+	}
+
 	public String getEmail() {
 		return this.email;
 	}
@@ -132,6 +145,13 @@ public class Recruiter implements Serializable {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	@Override
+	public String toString() {
+		return "Recruiter [address=" + address + ", companyAddress=" + companyAddress + ", companyInformation="
+				+ companyInformation + ", companyName=" + companyName + ", companyPhone=" + companyPhone + ", name="
+				+ name + ", sex=" + sex + ", user=" + user.User() + "]";
 	}
 
 }
