@@ -8,6 +8,7 @@ import java.util.List;
 
 import database.query.method.Query;
 import recruitment.system.entities.JobPost;
+import recruitment.system.entities.JobSeeker;
 import recruitment.system.interfaceinf.InterfaceUser;
 
 public class UserPower extends ConnectDataBase implements InterfaceUser{	
@@ -69,6 +70,12 @@ public class UserPower extends ConnectDataBase implements InterfaceUser{
 		}
 		return false;
 	}
+	
+	@Override
+	public boolean downloadCV(JobSeeker jobseeker) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	private String getNow()
 	{
 		Date date=new Date();
@@ -76,5 +83,4 @@ public class UserPower extends ConnectDataBase implements InterfaceUser{
         String d=(String)ft.format(date.getTime());
         return d;
 	}
-
 }

@@ -2,6 +2,7 @@ package recruitment.system.function;
 
 import java.sql.ResultSet;
 
+import database.query.method.Query;
 import recruitment.system.entities.Admin;
 import recruitment.system.entities.JobSeeker;
 import recruitment.system.entities.Recruiter;
@@ -9,15 +10,15 @@ import recruitment.system.entities.User;
 import recruitment.system.interfaceinf.SignInterface;
 
 public class LoginProcess extends ConnectDataBase implements SignInterface{
+	Query query;
 	public LoginProcess() {
 		super();
 	}
 	@Override
 	public int login(User user) {
-		ResultSet resultSet=null;
+		query=new Query();
 		try {
-			//resultset = statement.executeQuery("select * from user");
-			resultSet=resultset("select * from user");
+			resultset=resultset(query.selectAll("user"));
 			String _username = "";
 			String _password = "";
 			while(resultset.next()) {
@@ -43,10 +44,9 @@ public class LoginProcess extends ConnectDataBase implements SignInterface{
 
 	@Override
 	public boolean signInJob_Seeker(JobSeeker jobSeeker) {
-		ResultSet resultSet=null;
+		query=new Query();
 		try {
-			//resultset = statement.executeQuery("select * from user");
-			resultSet=resultset("select * from user");
+			resultset=resultset(query.selectAll("user"));
 			while(resultset.next()) {
 				if(resultset.getString("username").equals(jobSeeker.getEmail()))
 					return false;
@@ -71,6 +71,7 @@ public class LoginProcess extends ConnectDataBase implements SignInterface{
 	}
 	@Override
 	public boolean signInRecruiter(Recruiter recruiter) {
+		query=new Query();
 		String username = recruiter.getEmail();
 		String password = recruiter.getUser().getPassword();
 		String name = recruiter.getName();
@@ -80,10 +81,8 @@ public class LoginProcess extends ConnectDataBase implements SignInterface{
 		String company_address = recruiter.getCompanyAddress();
 		String company_phone = recruiter.getCompanyPhone();
 		String company_information = recruiter.getCompanyInformation();
-		ResultSet resultSet=null;
 		try {
-//			resultset = statement.executeQuery("select * from user");
-			resultSet=resultset("select * from user");
+			resultset=resultset(query.selectAll("user"));
 			while(resultset.next()) {
 				if(resultset.getString("username").equals(username))
 					return false;
@@ -108,16 +107,15 @@ public class LoginProcess extends ConnectDataBase implements SignInterface{
 	}
 	@Override
 	public boolean signInManager(Admin admin) {
+		query=new Query();
 		String username = admin.getEmail();
 		String password = admin.getUser().getPassword();
 		String name = admin.getName();
 		String sex = admin.getSex();
 		String address = admin.getAddress();
 		String phone_number = admin.getPhoneNumber();
-		ResultSet resultset=null;
 		try {
-//			resultset = statement.executeQuery("select * from user");
-			resultset=resultset("select * from user");
+			resultset=resultset(query.selectAll("user"));
 			while(resultset.next()) {
 				if(resultset.getString("username").equals(username))
 					return false;

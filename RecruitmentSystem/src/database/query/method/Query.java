@@ -9,4 +9,16 @@ public class Query {
 		String update="UPDATE "+table+" SET "+setPosition+" = "+valueUpdate+" WHERE "+where +" = " + id;
 		return update;
 	}
+	public String getAllManager(){
+		return "{CALL getAllManager()}";
+	}
+	public String getAllJobSeeker(){
+		return "{Call getAllJobSeeker()}";
+	}
+	public String getAllRecruiter(){
+		return "{Call getAllRecruiter()}";
+	}
+	public String countUser(){
+		return "{Call countUser()}";
+	}
 }

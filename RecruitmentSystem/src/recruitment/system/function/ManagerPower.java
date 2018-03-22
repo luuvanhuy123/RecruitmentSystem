@@ -14,41 +14,34 @@ import recruitment.system.entities.User;
 import recruitment.system.interfaceinf.interfaceManager;
 
 public class ManagerPower extends ConnectDataBase implements interfaceManager {
-	ArrayList<Admin> listAllManager = new ArrayList<Admin>();;
-	ArrayList<JobSeeker> listAllJobSeeker = new ArrayList<JobSeeker>();
-	ArrayList<Recruiter> listAllRecruiter = new ArrayList<Recruiter>();;
-	Query query = new Query();
-
+	List<Admin> listAllManager;
+	List<JobSeeker> listAllJobSeeker;
+	ArrayList<Recruiter> listAllRecruiter;
+	List<Admin>listSearchManagerAdmin;
+	Query query;
 	public ManagerPower() {
 		super();
 	}
 
 	@Override
 	public List<Admin> getAllManager() {
+		listAllManager = new ArrayList<Admin>();
+		query = new Query();
 		ArrayList<Role> listRoles = null;
-		String query = "SELECT admin.email, admin.name, admin.sex, admin.address, admin.phone_number, USER.username, USER.password, user_role.roleid, role.role_name FROM admin, USER, user_role, role WHERE admin.email = USER.username AND USER.username = user_role.username AND user_role.roleid = role.roleId";
-		String email = null;
-		String name = null;
-		String address = null;
-		String sex = null;
-		String phoneNumber = null;
-		String username = null;
-		String password = null;
+		String email,name,address,sex,phoneNumber,username,password,roleName;
 		int roleId;
-		String roleName;
-		ResultSet resultSetM = null;
 		try {
-			resultSetM = resultset(query);
-			while (resultSetM.next()) {
-				email = resultSetM.getString("email");
-				name = resultSetM.getString("name");
-				sex = resultSetM.getString("sex");
-				address = resultSetM.getString("address");
-				phoneNumber = resultSetM.getString("phone_number");
-				username = resultSetM.getString("username");
-				password = resultSetM.getString("password");
-				roleName = resultSetM.getString("role_name");
-				roleId = resultSetM.getInt("roleid");
+			resultset = callableStatement(query.getAllManager());
+			while (resultset.next()) {
+				email = resultset.getString("email");
+				name = resultset.getString("name");
+				sex = resultset.getString("sex");
+				address = resultset.getString("address");
+				phoneNumber = resultset.getString("phone_number");
+				username = resultset.getString("username");
+				password = resultset.getString("password");
+				roleName = resultset.getString("role_name");
+				roleId = resultset.getInt("roleid");
 				Role roleList = new Role(roleId, roleName);
 				listRoles = new ArrayList<>();
 				listRoles.add(roleList);
@@ -76,22 +69,22 @@ public class ManagerPower extends ConnectDataBase implements interfaceManager {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			finallyConnect(resultSetM);
+			finallyConnect(resultset);
 		}
 		return listAllManager;
 	}
 
 	@Override
 	public List<JobSeeker> getAllJobSeeker() {
-		String queryJobSeeker = "SELECT  job_seeker.email,job_seeker.name, job_seeker.CV, USER.password FROM job_seeker, USER WHERE job_seeker.email = USER.username";
+		listAllJobSeeker = new ArrayList<JobSeeker>();
+		query = new Query();
 		String username, name, password;
-		ResultSet resultSetJS = null;
 		try {
-			resultSetJS = resultset(queryJobSeeker);
-			while (resultSetJS.next()) {
-				username = resultSetJS.getString("email");
-				name = resultSetJS.getString("name");
-				password = resultSetJS.getString("password");
+			resultset = callableStatement(query.getAllJobSeeker());
+			while (resultset.next()) {
+				username = resultset.getString("email");
+				name = resultset.getString("name");
+				password = resultset.getString("password");
 				User user = new User();
 				user.setPassword(password);
 				JobSeeker js = new JobSeeker(username, name, user);
@@ -100,28 +93,28 @@ public class ManagerPower extends ConnectDataBase implements interfaceManager {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			finallyConnect(resultSetJS);
+			finallyConnect(resultset);
 		}
 		return listAllJobSeeker;
 	}
 
 	@Override
 	public List<Recruiter> getAllRecruiter() {
-		String queryRecruiter = "SELECT recruiter.name, recruiter.sex, recruiter.address, recruiter.company_name, recruiter.company_phone, recruiter.company_information, recruiter.company_address, USER.password,USER.username FROM recruiter, USER WHERE recruiter.email = USER.username";
+		listAllRecruiter = new ArrayList<Recruiter>();
+		query = new Query();
 		String name, sex, address, companyName, companyPhone, companyInfo, companyAddress, username, password;
-		ResultSet resultSetR = null;
 		try {
-			resultSetR = resultset(queryRecruiter);
-			while (resultSetR.next()) {
-				name = resultSetR.getString("name");
-				sex = resultSetR.getString("sex");
-				address = resultSetR.getString("address");
-				companyName = resultSetR.getString("company_name");
-				companyPhone = resultSetR.getString("company_phone");
-				companyInfo = resultSetR.getString("company_information");
-				companyAddress = resultSetR.getString("company_address");
-				username = resultSetR.getString("username");
-				password = resultSetR.getString("password");
+			resultset = callableStatement(query.getAllRecruiter());
+			while (resultset.next()) {
+				name = resultset.getString("name");
+				sex = resultset.getString("sex");
+				address = resultset.getString("address");
+				companyName = resultset.getString("company_name");
+				companyPhone = resultset.getString("company_phone");
+				companyInfo = resultset.getString("company_information");
+				companyAddress = resultset.getString("company_address");
+				username = resultset.getString("username");
+				password = resultset.getString("password");
 				User user = new User(username, password);
 				Recruiter recruiter = new Recruiter(address, companyAddress, companyInfo, companyName, companyPhone,
 						username, sex, user);
@@ -130,15 +123,15 @@ public class ManagerPower extends ConnectDataBase implements interfaceManager {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			finallyConnect(resultSetR);
+			finallyConnect(resultset);
 		}
 		return listAllRecruiter;
 	}
 
 	@Override
 	public List<Admin> searchManager(Admin admin) {
-		getAllManager();
-		List<Admin> listSearchManagerAdmin = new ArrayList<>();
+		this.getAllManager();
+		listSearchManagerAdmin = new ArrayList<>();
 		try {
 			for (int i = 0; i < listAllManager.size(); i++) {
 				if (listAllManager.get(i).getEmail().equals(admin.getEmail())) {
@@ -159,7 +152,7 @@ public class ManagerPower extends ConnectDataBase implements interfaceManager {
 
 	@Override
 	public List<JobSeeker> searchJobSeeker(JobSeeker jobseek) {
-		getAllJobSeeker();
+		this.getAllJobSeeker();
 		List<JobSeeker> listSearchJobSeeker = new ArrayList<>();
 		try {
 			for (int i = 0; i < listAllJobSeeker.size(); i++) {
@@ -178,7 +171,7 @@ public class ManagerPower extends ConnectDataBase implements interfaceManager {
 
 	@Override
 	public List<Recruiter> searchRecruiter(Recruiter recruiter) {
-		getAllRecruiter();
+		this.getAllRecruiter();
 		List<Recruiter> listSearchRecruiter = new ArrayList<>();
 		try {
 			for (int i = 0; i < listAllRecruiter.size(); i++) {
@@ -234,18 +227,17 @@ public class ManagerPower extends ConnectDataBase implements interfaceManager {
 	
 	@Override
 	public int statisticsUser() {
-		String queryCount = "SELECT COUNT(*) FROM user";
-		int count = 0;
-		ResultSet resultSetCount = null;
+		query = new Query();
+		int count=0;
 		try {
-			resultSetCount = resultset(queryCount);
-			while (resultSetCount.next()) {
-				count = resultSetCount.getInt(1);
+			resultset = callableStatement(query.countUser());
+			while (resultset.next()) {
+				count = resultset.getInt(1);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-
+			finallyConnect(resultset);
 		}
 		return count;
 	}
@@ -260,21 +252,21 @@ public class ManagerPower extends ConnectDataBase implements interfaceManager {
 	
 	@Override
 	public int statisticsAdmin() {
-		getAllManager();
+		this.getAllManager();
 		return listAllManager.size();
 	}
 
 	
 	@Override
 	public int statisticsJobSeeker() {
-		getAllJobSeeker();
+		this.getAllJobSeeker();
 		return listAllJobSeeker.size();
 	}
 
 	
 	@Override
 	public int statisticsRecruiter() {
-		getAllRecruiter();
+		this.getAllRecruiter();
 		return listAllRecruiter.size();
 	}
 

@@ -13,6 +13,7 @@ public class ConnectDataBase {
 	protected Connection connection = null;
 	protected Statement statement = null;
 	protected ResultSet resultset = null;
+	protected CallableStatement callableStatement=null;
 	public ConnectDataBase() {
 		connect();
 	}
@@ -34,6 +35,26 @@ public class ConnectDataBase {
 			// TODO: handle exception
 		}
 		return resultset;
+	}
+	protected ResultSet callableStatement(String sql){
+		try {
+			callableStatement=connection.prepareCall(sql);
+			resultset=callableStatement.executeQuery();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return resultset;
+		
+	}
+	protected CallableStatement callableStatementUpdate(String sql){
+		try {
+			callableStatement=connection.prepareCall(sql);
+			callableStatement.executeUpdate();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return callableStatement;
+		
 	}
 	protected void finallyConnect(ResultSet resultset) {
 		try {
