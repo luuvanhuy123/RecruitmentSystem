@@ -2,6 +2,9 @@ package recruitment.system.function;
 
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+
+import recruitment.system.entities.Admin;
+
 import java.sql.*;
 
 
@@ -46,14 +49,15 @@ public class ConnectDataBase {
 		return resultset;
 		
 	}
-	protected CallableStatement callableStatementUpdate(String sql){
+	protected ResultSet callableStatementDelete(String sql,String id){
 		try {
 			callableStatement=connection.prepareCall(sql);
-			callableStatement.executeUpdate();
+			callableStatement.setString(1,id);
+			resultset=callableStatement.executeQuery();
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		return callableStatement;
+		return resultset;
 		
 	}
 	protected void finallyConnect(ResultSet resultset) {

@@ -1,5 +1,7 @@
 package database.query.method;
 
+import recruitment.system.entities.Admin;
+
 public class Query {
 	public String selectAll(String table){
 		String query="SELECT * FROM "+table;
@@ -20,5 +22,14 @@ public class Query {
 	}
 	public String countUser(){
 		return "{Call countUser()}";
+	}
+	public String deleteAdmin(){
+		return "{Call deleteAdmin(?)}";
+	}
+	public String deleteJobSeeker(){
+		return "{Call deleteJobSeeker(?)}";
+	}
+	public String deleteRecruiter(){
+		return "{Call deleteRecruiter(?)}";
 	}
 }

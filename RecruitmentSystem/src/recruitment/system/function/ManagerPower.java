@@ -17,8 +17,9 @@ public class ManagerPower extends ConnectDataBase implements interfaceManager {
 	List<Admin> listAllManager;
 	List<JobSeeker> listAllJobSeeker;
 	ArrayList<Recruiter> listAllRecruiter;
-	List<Admin>listSearchManagerAdmin;
+	List<Admin> listSearchManagerAdmin;
 	Query query;
+
 	public ManagerPower() {
 		super();
 	}
@@ -28,7 +29,7 @@ public class ManagerPower extends ConnectDataBase implements interfaceManager {
 		listAllManager = new ArrayList<Admin>();
 		query = new Query();
 		ArrayList<Role> listRoles = null;
-		String email,name,address,sex,phoneNumber,username,password,roleName;
+		String email, name, address, sex, phoneNumber, username, password, roleName;
 		int roleId;
 		try {
 			resultset = callableStatement(query.getAllManager());
@@ -201,34 +202,59 @@ public class ManagerPower extends ConnectDataBase implements interfaceManager {
 
 	@Override
 	public boolean deleteManager(Admin admin) {
-		// TODO Auto-generated method stub
+		query = new Query();
+		String email=admin.getEmail();
+		try {
+			resultset=callableStatementDelete(query.deleteAdmin(), email);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			finallyConnect(resultset);
+		}
 		return false;
 	}
 
 	@Override
 	public boolean deleteJobSeeker(JobSeeker jobseeker) {
-		// TODO Auto-generated method stub
+		query = new Query();
+		String email=jobseeker.getEmail();
+		try {
+			resultset=callableStatementDelete(query.deleteJobSeeker(), email);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			finallyConnect(resultset);
+		}
 		return false;
 	}
 
 	@Override
 	public boolean deleteRecruiter(Recruiter recruiter) {
-		// TODO Auto-generated method stub
+		query = new Query();
+		String email=recruiter.getEmail();
+		try {
+			resultset=callableStatementDelete(query.deleteRecruiter(), email);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			finallyConnect(resultset);
+		}
 		return false;
 	}
 
-	
 	@Override
 	public boolean deleteJobPost(JobPost jobpost) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	
 	@Override
 	public int statisticsUser() {
 		query = new Query();
-		int count=0;
+		int count = 0;
 		try {
 			resultset = callableStatement(query.countUser());
 			while (resultset.next()) {
@@ -242,28 +268,24 @@ public class ManagerPower extends ConnectDataBase implements interfaceManager {
 		return count;
 	}
 
-	
 	@Override
 	public int statisticsJobpost(JobPost jobpost) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	
 	@Override
 	public int statisticsAdmin() {
 		this.getAllManager();
 		return listAllManager.size();
 	}
 
-	
 	@Override
 	public int statisticsJobSeeker() {
 		this.getAllJobSeeker();
 		return listAllJobSeeker.size();
 	}
 
-	
 	@Override
 	public int statisticsRecruiter() {
 		this.getAllRecruiter();

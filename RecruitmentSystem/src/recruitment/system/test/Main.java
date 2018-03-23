@@ -44,11 +44,18 @@ public class Main {
 		jp1.setName("TuanTk");
 		jp1.setEmail("khanhtuan623@gmail.com");
 		System.out.println(new ManagerPower().searchJobSeeker(jp1));
-		
+		admin.setEmail("tuanTK");
 		System.out.println(new ManagerPower().statisticsUser());
 		System.out.println(new ManagerPower().statisticsAdmin());
 		System.out.println(new ManagerPower().statisticsJobSeeker());
 		System.out.println(new ManagerPower().statisticsRecruiter());
+		System.out.println(new ManagerPower().deleteManager(admin));
+		JobSeeker job=new JobSeeker();
+		job.setEmail("khanhtuan623@gmail.com");
+		System.out.println(new ManagerPower().deleteJobSeeker(job));
+		Recruiter re=new Recruiter();
+		re.setEmail("huyluu");
+		System.out.println(new ManagerPower().deleteRecruiter(re));
 	}
 
 }
