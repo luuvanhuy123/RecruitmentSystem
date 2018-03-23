@@ -202,11 +202,19 @@ public class ManagerPower extends ConnectDataBase implements interfaceManager {
 
 	@Override
 	public boolean deleteManager(Admin admin) {
+		this.getAllManager();
 		query = new Query();
-		String email=admin.getEmail();
+		String email = admin.getEmail();
 		try {
-			resultset=callableStatementDelete(query.deleteAdmin(), email);
-			return true;
+			for (int i = 0; i < listAllManager.size(); i++) {
+				if (listAllManager.get(i).getEmail().equals(email)) {
+					resultset = callableStatementDelete(query.deleteAdmin(), email);
+					return true;
+				} else {
+					return false;
+				}
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -217,11 +225,19 @@ public class ManagerPower extends ConnectDataBase implements interfaceManager {
 
 	@Override
 	public boolean deleteJobSeeker(JobSeeker jobseeker) {
+		this.getAllJobSeeker();
 		query = new Query();
-		String email=jobseeker.getEmail();
+		String email = jobseeker.getEmail();
 		try {
-			resultset=callableStatementDelete(query.deleteJobSeeker(), email);
-			return true;
+			for (int i = 0; i < listAllJobSeeker.size(); i++) {
+				if (listAllJobSeeker.get(i).getEmail().equals(email)) {
+					resultset = callableStatementDelete(query.deleteJobSeeker(), email);
+					return true;
+				} else {
+					return false;
+				}
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -232,11 +248,20 @@ public class ManagerPower extends ConnectDataBase implements interfaceManager {
 
 	@Override
 	public boolean deleteRecruiter(Recruiter recruiter) {
+		this.getAllRecruiter();
 		query = new Query();
-		String email=recruiter.getEmail();
+		String email = recruiter.getEmail();
 		try {
-			resultset=callableStatementDelete(query.deleteRecruiter(), email);
-			return true;
+			for (int i = 0; i < listAllRecruiter.size(); i++) {
+				if (listAllRecruiter.get(i).getEmail().equals(email)) {
+					resultset = callableStatementDelete(query.deleteRecruiter(), email);
+					return true;
+				} else {
+					return false;
+				}
+
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

@@ -51,7 +51,7 @@ public class Main {
 		System.out.println(new ManagerPower().statisticsRecruiter());
 		System.out.println(new ManagerPower().deleteManager(admin));
 		JobSeeker job=new JobSeeker();
-		job.setEmail("khanhtuan623@gmail.com");
+		job.setEmail("tkt");
 		System.out.println(new ManagerPower().deleteJobSeeker(job));
 		Recruiter re=new Recruiter();
 		re.setEmail("huyluu");
