@@ -107,6 +107,7 @@ public class ManagerPower extends ConnectDataBase implements interfaceManager {
 		try {
 			resultset = callableStatement(query.getAllRecruiter());
 			while (resultset.next()) {
+				username = resultset.getString("email");
 				name = resultset.getString("name");
 				sex = resultset.getString("sex");
 				address = resultset.getString("address");
@@ -114,10 +115,9 @@ public class ManagerPower extends ConnectDataBase implements interfaceManager {
 				companyPhone = resultset.getString("company_phone");
 				companyInfo = resultset.getString("company_information");
 				companyAddress = resultset.getString("company_address");
-				username = resultset.getString("username");
 				password = resultset.getString("password");
 				User user = new User(username, password);
-				Recruiter recruiter = new Recruiter(address, companyAddress, companyInfo, companyName, companyPhone,
+				Recruiter recruiter = new Recruiter(username,address, companyAddress, companyInfo, companyName, companyPhone,
 						username, sex, user);
 				listAllRecruiter.add(recruiter);
 			}
@@ -177,7 +177,7 @@ public class ManagerPower extends ConnectDataBase implements interfaceManager {
 		try {
 			for (int i = 0; i < listAllRecruiter.size(); i++) {
 				if (listAllRecruiter.get(i).getEmail().equals(recruiter.getEmail())) {
-					listAllRecruiter.add(listAllRecruiter.get(i));
+					listSearchRecruiter.add(listAllRecruiter.get(i));
 				} else if (listAllRecruiter.get(i).getName().equals(recruiter.getName())) {
 					listSearchRecruiter.add(listSearchRecruiter.get(i));
 				} else if (listAllRecruiter.get(i).getAddress().equals(recruiter.getAddress())) {
@@ -269,7 +269,7 @@ public class ManagerPower extends ConnectDataBase implements interfaceManager {
 		}
 		return false;
 	}
-
+	
 	@Override
 	public boolean deleteJobPost(JobPost jobpost) {
 		// TODO Auto-generated method stub

@@ -1,8 +1,5 @@
 package recruitment.system.function;
 
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-
 import recruitment.system.entities.Admin;
 
 import java.sql.*;
@@ -55,7 +52,7 @@ public class ConnectDataBase {
 			callableStatement.setString(1,id);
 			resultset=callableStatement.executeQuery();
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		return resultset;
 		

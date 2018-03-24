@@ -32,4 +32,4 @@ public class Query {
 	public String deleteRecruiter(){
 		return "{Call deleteRecruiter(?)}";
 	}
-}
+	}

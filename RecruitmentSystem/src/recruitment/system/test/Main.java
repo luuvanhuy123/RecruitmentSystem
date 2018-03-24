@@ -6,9 +6,9 @@ public class Main {
 	public static void main(String[] args) {
 		
 //		 test functions of interface signinterface
-//		JobSeeker jobSeeker = new JobSeeker("tuanTk","luu van huy", new User("luuvanhuy123@gmail.com", "123"));
-//		Recruiter recruiter = new Recruiter("admin", "admin", "admin", "admin", "admin","admin","admin","F", new User("admin","admin"));
-//		Admin admin = new Admin("tuanTK", "q7", "tuan", "tuantk", "F", new User("tuantk", "00123"));
+//		JobSeeker jobSeeker = new JobSeeker("tuanTk","Tran Khanh Tuan", new User("khanhtuan623@gmail.com", "123"));
+//		Recruiter recruiter = new Recruiter("recruiter", "recruiter", "abc", "xyz", "oop","main","ok","F", new User("admin","123"));
+//		Admin admin = new Admin("admin", "q7", "tuan", "tuantk", "F", new User("admin", "admin"));
 //		if(new LoginProcess().signInJob_Seeker(jobSeeker)==true)
 //			System.out.println("jobseeker::true");
 //		else
@@ -23,38 +23,40 @@ public class Main {
 //			System.out.println("admin::false");
 //		System.out.println("=================================================");
 //		System.out.println(new LoginProcess().login(new User("admin","admin")));
-////		System.out.println(new LoginProcess().login(new User("huyluu","huyluu")));
+//		System.out.println(new LoginProcess().login(new User("huyluu","huyluu")));
 //		System.out.println(new LoginProcess().login(new User("luuvanhuy123@gmail.com","123")));
 //		System.out.println(new LoginProcess().login(new User("0","0")));
 //		new LoginProcess().signInManager(admin);
 		 //end test functions of interface signinterface
 //		/*Test function change Status jobpost*/
-		UserPower user=new UserPower();
-		JobPost jp=new JobPost("1",(byte)8);
-		System.out.println(user.changeStatus_Jobpost(jp));
-//		/*test function get All List Admin,JobSeeker,Recruiter*/
+//		UserPower user=new UserPower();
+//		JobPost jp=new JobPost("1",(byte)8);
+//		System.out.println(user.changeStatus_Jobpost(jp));
+////		/*test function get All List Admin,JobSeeker,Recruiter*/
 		System.out.println(new ManagerPower().getAllManager());
 		System.out.println(new ManagerPower().getAllJobSeeker());
 		System.out.println(new ManagerPower().getAllRecruiter());
 		Admin admin=new Admin();
-		admin.setAddress("District 7");
+		admin.setEmail("admin");
 		System.out.println(new ManagerPower().searchManager(admin));
 
 		JobSeeker jp1=new JobSeeker();
-		jp1.setName("TuanTk");
-		jp1.setEmail("khanhtuan623@gmail.com");
+		jp1.setEmail("tuanTk");
 		System.out.println(new ManagerPower().searchJobSeeker(jp1));
-		admin.setEmail("tuanTK");
+		Recruiter r1=new Recruiter();
+		r1.setEmail("recruiter");
+		System.out.println(new ManagerPower().searchRecruiter(r1));
+		admin.setEmail("khanhtuan623@gmail.com");
 		System.out.println(new ManagerPower().statisticsUser());
 		System.out.println(new ManagerPower().statisticsAdmin());
 		System.out.println(new ManagerPower().statisticsJobSeeker());
 		System.out.println(new ManagerPower().statisticsRecruiter());
 		System.out.println(new ManagerPower().deleteManager(admin));
 		JobSeeker job=new JobSeeker();
-		job.setEmail("tkt");
+		job.setEmail("khanhtuan623@gmail.com");
 		System.out.println(new ManagerPower().deleteJobSeeker(job));
 		Recruiter re=new Recruiter();
-		re.setEmail("huyluu");
+		re.setEmail("tt");
 		System.out.println(new ManagerPower().deleteRecruiter(re));
 	}
 
