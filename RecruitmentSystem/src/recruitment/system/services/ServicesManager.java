@@ -17,7 +17,7 @@ public class ServicesManager extends ManagerPower {
 	public ServicesManager() {
 		super();
 	}
-	
+
 	@POST
 	@Path("/listmanagers")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -25,6 +25,7 @@ public class ServicesManager extends ManagerPower {
 	public List<Admin> getListManagers() {
 		return getAllManager();
 	}
+
 	@POST
 	@Path("/listjobseekers")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -32,6 +33,7 @@ public class ServicesManager extends ManagerPower {
 	public List<JobSeeker> getListJobSeekers() {
 		return getAllJobSeeker();
 	}
+
 	@POST
 	@Path("/listrecruiters")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -39,6 +41,5 @@ public class ServicesManager extends ManagerPower {
 	public List<Recruiter> getListRecruiters() {
 		return getAllRecruiter();
 	}
-	
-	
+
 }

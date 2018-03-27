@@ -1,8 +1,35 @@
 package recruitment.system.services;
 
+import java.util.List;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+import recruitment.system.entities.Admin;
+import recruitment.system.function.UserPower;
 
 @Path("/user")
-public class ServicesUser {
+public class ServicesUser extends UserPower {
+	public ServicesUser(){
+		super();
+	}
+	
+	@GET
+	@Path("/downloads/{id}")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.APPLICATION_JSON)
+	public boolean downloadsCV(@PathParam("id") String id ){
+		if(downloadCV(id)==true){
+			return true;
+		};
+		return false;
+	}
+	
 
 }

@@ -1,5 +1,8 @@
 package recruitment.system.test;
 import recruitment.system.function.*;
+
+import javax.enterprise.inject.New;
+
 import recruitment.system.entities.*;
 public class Main {
 
@@ -33,31 +36,35 @@ public class Main {
 //		JobPost jp=new JobPost("1",(byte)8);
 //		System.out.println(user.changeStatus_Jobpost(jp));
 ////		/*test function get All List Admin,JobSeeker,Recruiter*/
-		System.out.println(new ManagerPower().getAllManager());
-		System.out.println(new ManagerPower().getAllJobSeeker());
-		System.out.println(new ManagerPower().getAllRecruiter());
-		Admin admin=new Admin();
-		admin.setEmail("admin");
-		System.out.println(new ManagerPower().searchManager(admin));
-
-		JobSeeker jp1=new JobSeeker();
-		jp1.setEmail("tuanTk");
-		System.out.println(new ManagerPower().searchJobSeeker(jp1));
-		Recruiter r1=new Recruiter();
-		r1.setEmail("recruiter");
-		System.out.println(new ManagerPower().searchRecruiter(r1));
-		admin.setEmail("khanhtuan623@gmail.com");
-		System.out.println(new ManagerPower().statisticsUser());
-		System.out.println(new ManagerPower().statisticsAdmin());
-		System.out.println(new ManagerPower().statisticsJobSeeker());
-		System.out.println(new ManagerPower().statisticsRecruiter());
-		System.out.println(new ManagerPower().deleteManager(admin));
-		JobSeeker job=new JobSeeker();
-		job.setEmail("khanhtuan623@gmail.com");
-		System.out.println(new ManagerPower().deleteJobSeeker(job));
-		Recruiter re=new Recruiter();
-		re.setEmail("tt");
-		System.out.println(new ManagerPower().deleteRecruiter(re));
+//		System.out.println(new ManagerPower().getAllManager());
+//		System.out.println(new ManagerPower().getAllJobSeeker());
+//		System.out.println(new ManagerPower().getAllRecruiter());
+//		Admin admin=new Admin();
+//		admin.setEmail("admin");
+//		System.out.println(new ManagerPower().searchManager(admin));
+//
+//		JobSeeker jp1=new JobSeeker();
+//		jp1.setEmail("tuanTk");
+//		System.out.println(new ManagerPower().searchJobSeeker(jp1));
+//		Recruiter r1=new Recruiter();
+//		r1.setEmail("recruiter");
+//		System.out.println(new ManagerPower().searchRecruiter(r1));
+//		admin.setEmail("khanhtuan623@gmail.com");
+//		System.out.println(new ManagerPower().statisticsUser());
+//		System.out.println(new ManagerPower().statisticsAdmin());
+//		System.out.println(new ManagerPower().statisticsJobSeeker());
+//		System.out.println(new ManagerPower().statisticsRecruiter());
+//		System.out.println(new ManagerPower().deleteManager(admin));
+//		JobSeeker job=new JobSeeker();
+//		job.setEmail("khanhtuan623@gmail.com");
+//		System.out.println(new ManagerPower().deleteJobSeeker(job));
+//		Recruiter re=new Recruiter();
+//		re.setEmail("tt");
+//		System.out.println(new ManagerPower().deleteRecruiter(re));
+//		JobSeeker jp=new JobSeeker();
+		String email="tuanTk";
+		System.out.println(new UserPower().downloadCV(email));
+//		System.out.println(new UserPower().getAllJobPost());
 	}
 
 }

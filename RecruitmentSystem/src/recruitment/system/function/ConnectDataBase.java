@@ -1,9 +1,12 @@
 package recruitment.system.function;
 
-import recruitment.system.entities.Admin;
-
-import java.sql.*;
-
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
 
 public class ConnectDataBase {
 	private final String classname = "com.mysql.jdbc.Driver";
@@ -14,6 +17,7 @@ public class ConnectDataBase {
 	protected Statement statement = null;
 	protected ResultSet resultset = null;
 	protected CallableStatement callableStatement=null;
+	protected PreparedStatement preparedStatement=null;
 	public ConnectDataBase() {
 		connect();
 	}
@@ -45,6 +49,15 @@ public class ConnectDataBase {
 		}
 		return resultset;
 		
+	}
+	protected ResultSet preparedStatement(String sql){
+		try {
+			preparedStatement=connection.prepareStatement(sql);
+			resultset=preparedStatement.executeQuery();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resultset;
 	}
 	protected ResultSet callableStatementDelete(String sql,String id){
 		try {

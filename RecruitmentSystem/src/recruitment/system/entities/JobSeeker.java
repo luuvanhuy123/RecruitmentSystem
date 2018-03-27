@@ -1,9 +1,14 @@
 package recruitment.system.entities;
 
 import java.io.Serializable;
-import java.util.Arrays;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 
 /**

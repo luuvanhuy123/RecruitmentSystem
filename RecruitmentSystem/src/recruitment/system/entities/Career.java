@@ -28,6 +28,12 @@ public class Career implements Serializable {
 	public Career() {
 	}
 
+	public Career(int careerId, String careerName) {
+		super();
+		this.careerId = careerId;
+		this.careerName = careerName;
+	}
+
 	public int getCareerId() {
 		return this.careerId;
 	}
@@ -50,6 +56,11 @@ public class Career implements Serializable {
 
 	public void setJobPosts(List<JobPost> jobPosts) {
 		this.jobPosts = jobPosts;
+	}
+
+	@Override
+	public String toString() {
+		return "Career [careerId=" + careerId + ", careerName=" + careerName + "]";
 	}
 
 }

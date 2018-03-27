@@ -17,7 +17,7 @@ public class JobPost implements Serializable {
 
 	@Id
 	@Column(name="posts_id")
-	private String postsId;
+	private int postsId;
 
 	@Lob
 	private String benefit;
@@ -50,7 +50,7 @@ public class JobPost implements Serializable {
 	private String post_date;
 
 	@Column(name="posts_status")
-	private byte postsStatus;
+	private int postsStatus;
 
 	@Column(name="posts_type")
 	private String postsType;
@@ -88,14 +88,34 @@ public class JobPost implements Serializable {
 		this.user = user;
 	}
 
-	public JobPost(String postsId, byte postsStatus) {
+	public JobPost(int postsId, int postsStatus) {
 		super();
 		this.postsId = postsId;
 		this.postsStatus = postsStatus;
 	}
 
-	public JobPost(String postsId, String benefit, String jobDescription, String jobName, String jobPosition,
-			String jobRecruitment, String location, String otherInformation, String post_date, byte postsStatus,
+	public JobPost(int postsId,String benefit, String jobDescription, String jobName, String jobPosition,
+			String jobRecruitment, String location, String otherInformation, String post_date, int postsStatus,
+			String postsType, String salary, User user, List<Career> careers) {
+		super();
+		this.postsId=postsId;
+		this.benefit = benefit;
+		this.jobDescription = jobDescription;
+		this.jobName = jobName;
+		this.jobPosition = jobPosition;
+		this.jobRecruitment = jobRecruitment;
+		this.location = location;
+		this.otherInformation = otherInformation;
+		this.post_date = post_date;
+		this.postsStatus = postsStatus;
+		this.postsType = postsType;
+		this.salary = salary;
+		this.user = user;
+		this.careers = careers;
+	}
+
+	public JobPost(int postsId, String benefit, String jobDescription, String jobName, String jobPosition,
+			String jobRecruitment, String location, String otherInformation, String post_date, int postsStatus,
 			String postsType, String salary, User user, List<Career> careers,
 			List<RecruiteregistrationHistory> recruiteregistrationHistories) {
 		super();
@@ -116,11 +136,11 @@ public class JobPost implements Serializable {
 		this.recruiteregistrationHistories = recruiteregistrationHistories;
 	}
 
-	public String getPostsId() {
+	public int getPostsId() {
 		return this.postsId;
 	}
 
-	public void setPostsId(String postsId) {
+	public void setPostsId(int postsId) {
 		this.postsId = postsId;
 	}
 
@@ -188,11 +208,11 @@ public class JobPost implements Serializable {
 		this.post_date = post_date;
 	}
 
-	public byte getPostsStatus() {
+	public int getPostsStatus() {
 		return this.postsStatus;
 	}
 
-	public void setPostsStatus(byte postsStatus) {
+	public void setPostsStatus(int postsStatus) {
 		this.postsStatus = postsStatus;
 	}
 
@@ -248,6 +268,15 @@ public class JobPost implements Serializable {
 		recruiteregistrationHistory.setJobPost(null);
 
 		return recruiteregistrationHistory;
+	}
+
+	@Override
+	public String toString() {
+		return "JobPost [postsId=" + postsId + ", benefit=" + benefit + ", jobDescription=" + jobDescription
+				+ ", jobName=" + jobName + ", jobPosition=" + jobPosition + ", jobRecruitment=" + jobRecruitment
+				+ ", location=" + location + ", otherInformation=" + otherInformation + ", post_date=" + post_date
+				+ ", postsStatus=" + postsStatus + ", postsType=" + postsType + ", salary=" + salary + ", user=" + user.UserJobPost()
+				+ ", careers=" + careers + "]";
 	}
 
 }

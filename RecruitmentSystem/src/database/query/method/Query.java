@@ -1,7 +1,5 @@
 package database.query.method;
 
-import recruitment.system.entities.Admin;
-
 public class Query {
 	public String selectAll(String table){
 		String query="SELECT * FROM "+table;
@@ -11,8 +9,11 @@ public class Query {
 		String update="UPDATE "+table+" SET "+setPosition+" = "+valueUpdate+" WHERE "+where +" = " + id;
 		return update;
 	}
+	public String getAllJobPost(){
+		return "{Call getAllJobPost()}";
+	}
 	public String getAllManager(){
-		return "{CALL getAllManager()}";
+		return "{Call getAllManager()}";
 	}
 	public String getAllJobSeeker(){
 		return "{Call getAllJobSeeker()}";

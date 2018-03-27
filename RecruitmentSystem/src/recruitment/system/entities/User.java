@@ -1,8 +1,16 @@
 package recruitment.system.entities;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 
 /**
@@ -176,6 +184,9 @@ public class User implements Serializable {
 	public String User(){
 		return "User [password=" + password + "]";
 
+	}
+	public String UserJobPost(){
+		return "User [username=" + username+ "]";
 	}
 
 }

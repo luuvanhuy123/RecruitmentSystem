@@ -1,6 +1,5 @@
 package recruitment.system.function;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -117,8 +116,8 @@ public class ManagerPower extends ConnectDataBase implements interfaceManager {
 				companyAddress = resultset.getString("company_address");
 				password = resultset.getString("password");
 				User user = new User(username, password);
-				Recruiter recruiter = new Recruiter(username,address, companyAddress, companyInfo, companyName, companyPhone,
-						username, sex, user);
+				Recruiter recruiter = new Recruiter(username, address, companyAddress, companyInfo, companyName,
+						companyPhone, username, sex, user);
 				listAllRecruiter.add(recruiter);
 			}
 		} catch (Exception e) {
@@ -269,7 +268,7 @@ public class ManagerPower extends ConnectDataBase implements interfaceManager {
 		}
 		return false;
 	}
-	
+
 	@Override
 	public boolean deleteJobPost(JobPost jobpost) {
 		// TODO Auto-generated method stub
