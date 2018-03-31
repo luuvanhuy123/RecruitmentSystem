@@ -13,7 +13,7 @@ import recruitment.system.entities.JobSeeker;
 import recruitment.system.entities.Recruiter;
 
 @Path("/manager")
-public class ServicesManager extends ManagerPower {
+public class ServicesManager  {
 	public ServicesManager() {
 		super();
 	}
@@ -23,7 +23,8 @@ public class ServicesManager extends ManagerPower {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Admin> getListManagers() {
-		return getAllManager();
+		ManagerPower listM=new ManagerPower();
+		return listM.getAllManager();
 	}
 
 	@POST
@@ -31,7 +32,8 @@ public class ServicesManager extends ManagerPower {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<JobSeeker> getListJobSeekers() {
-		return getAllJobSeeker();
+		ManagerPower listJ=new ManagerPower();
+		return listJ.getAllJobSeeker();
 	}
 
 	@POST
@@ -39,7 +41,8 @@ public class ServicesManager extends ManagerPower {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Recruiter> getListRecruiters() {
-		return getAllRecruiter();
+		ManagerPower listR=new  ManagerPower();
+		return listR.getAllRecruiter();
 	}
 
 }
