@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 08, 2018 at 10:29 AM
+-- Generation Time: Apr 08, 2018 at 10:38 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.10
 
@@ -21,38 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `recruitmentsystem`
 --
-
-DELIMITER $$
---
--- Procedures
---
-CREATE DEFINER=`root`@`localhost` PROCEDURE `countUser` ()  NO SQL
-SELECT COUNT(*) FROM user$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteJobPosts` (IN `value` INT)  NO SQL
-DELETE FROM job_posts WHERE job_posts.posts_id=value$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteJobSeeker` (IN `value` VARCHAR(20))  NO SQL
-DELETE FROM job_seeker WHERE job_seeker.email=value$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteRecruiter` (IN `value` VARCHAR(20))  NO SQL
-DELETE FROM recruiter WHERE recruiter.email=value$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getAllJobSeeker` ()  NO SQL
-SELECT  job_seeker.email,job_seeker.name, job_seeker.CV, USER.password FROM job_seeker, USER WHERE job_seeker.email = USER.username$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getAllManager` ()  NO SQL
-SELECT
-        admin.email, admin.name, admin.sex, admin.address, admin.phone_number, USER.username, USER.password
-    FROM
-        admin, USER
-    WHERE
-        admin.email = USER.username$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getAllRecruiter` ()  NO SQL
-SELECT recruiter.email, recruiter.name, recruiter.sex, recruiter.address, recruiter.company_name, recruiter.company_phone, recruiter.company_information, recruiter.company_address, USER.password FROM recruiter, USER WHERE recruiter.email = USER.username$$
-
-DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -74,14 +42,6 @@ CREATE TABLE `admin` (
 
 INSERT INTO `admin` (`email`, `name`, `sex`, `address`, `phone_number`) VALUES
 ('admin', 'tuan', 'F', 'q7', 'tuantk');
-
---
--- Triggers `admin`
---
-DELIMITER $$
-CREATE TRIGGER `deleteUserAdmin` AFTER DELETE ON `admin` FOR EACH ROW DELETE FROM user WHERE user.username=old.email
-$$
-DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -123,14 +83,6 @@ CREATE TABLE `job_seeker` (
 INSERT INTO `job_seeker` (`email`, `name`, `CV`) VALUES
 ('tuanTk', 'Tran Khanh Tuan', NULL);
 
---
--- Triggers `job_seeker`
---
-DELIMITER $$
-CREATE TRIGGER `deleteUserJobSeeker` AFTER DELETE ON `job_seeker` FOR EACH ROW DELETE FROM user WHERE user.username=old.email
-$$
-DELIMITER ;
-
 -- --------------------------------------------------------
 
 --
@@ -154,14 +106,6 @@ CREATE TABLE `recruiter` (
 
 INSERT INTO `recruiter` (`email`, `name`, `sex`, `address`, `company_name`, `company_phone`, `company_information`, `company_address`) VALUES
 ('recruiter', 'ok', 'F', 'recruiter', 'oop', 'main', 'xyz', 'abc');
-
---
--- Triggers `recruiter`
---
-DELIMITER $$
-CREATE TRIGGER `deleteUserRecruiter` AFTER DELETE ON `recruiter` FOR EACH ROW DELETE FROM user WHERE user.username=old.email
-$$
-DELIMITER ;
 
 -- --------------------------------------------------------
 
