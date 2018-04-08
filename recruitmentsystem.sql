@@ -2,10 +2,10 @@
 -- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Apr 08, 2018 at 10:13 AM
--- Server version: 10.1.30-MariaDB
--- PHP Version: 5.6.33
+-- Host: localhost
+-- Generation Time: Apr 08, 2018 at 10:18 AM
+-- Server version: 10.1.28-MariaDB
+-- PHP Version: 7.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -277,6 +277,18 @@ ALTER TABLE `job_posts`
 --
 ALTER TABLE `admin`
   ADD CONSTRAINT `fk_admin_user` FOREIGN KEY (`email`) REFERENCES `user` (`username`);
+
+--
+-- Constraints for table `career`
+--
+ALTER TABLE `career`
+  ADD CONSTRAINT `career_ibfk_1` FOREIGN KEY (`careerId`) REFERENCES `job_posts` (`careerId`);
+
+--
+-- Constraints for table `job_posts`
+--
+ALTER TABLE `job_posts`
+  ADD CONSTRAINT `job_posts_ibfk_1` FOREIGN KEY (`location`) REFERENCES `location` (`location_id`);
 
 --
 -- Constraints for table `job_seeker`
