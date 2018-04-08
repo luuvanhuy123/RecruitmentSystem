@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 08, 2018 at 10:18 AM
+-- Generation Time: Apr 08, 2018 at 10:29 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.10
 
@@ -82,17 +82,6 @@ DELIMITER $$
 CREATE TRIGGER `deleteUserAdmin` AFTER DELETE ON `admin` FOR EACH ROW DELETE FROM user WHERE user.username=old.email
 $$
 DELIMITER ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `career`
---
-
-CREATE TABLE `career` (
-  `careerId` int(11) NOT NULL,
-  `career_name` text COLLATE utf8_bin NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -220,12 +209,6 @@ ALTER TABLE `admin`
   ADD PRIMARY KEY (`email`);
 
 --
--- Indexes for table `career`
---
-ALTER TABLE `career`
-  ADD PRIMARY KEY (`careerId`);
-
---
 -- Indexes for table `job_posts`
 --
 ALTER TABLE `job_posts`
@@ -279,16 +262,11 @@ ALTER TABLE `admin`
   ADD CONSTRAINT `fk_admin_user` FOREIGN KEY (`email`) REFERENCES `user` (`username`);
 
 --
--- Constraints for table `career`
---
-ALTER TABLE `career`
-  ADD CONSTRAINT `career_ibfk_1` FOREIGN KEY (`careerId`) REFERENCES `job_posts` (`careerId`);
-
---
 -- Constraints for table `job_posts`
 --
 ALTER TABLE `job_posts`
-  ADD CONSTRAINT `job_posts_ibfk_1` FOREIGN KEY (`location`) REFERENCES `location` (`location_id`);
+  ADD CONSTRAINT `fk_jobpost_carr` FOREIGN KEY (`careerId`) REFERENCES `carrer` (`carrerId`),
+  ADD CONSTRAINT `fk_jobpost_loc` FOREIGN KEY (`location`) REFERENCES `location` (`location`);
 
 --
 -- Constraints for table `job_seeker`
