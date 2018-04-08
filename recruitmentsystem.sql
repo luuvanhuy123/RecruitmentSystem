@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 08, 2018 at 10:04 AM
+-- Generation Time: Apr 08, 2018 at 10:13 AM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 5.6.33
 
@@ -230,8 +230,8 @@ ALTER TABLE `career`
 --
 ALTER TABLE `job_posts`
   ADD PRIMARY KEY (`posts_id`),
-  ADD KEY `fk_jobpost_career` (`careerId`),
-  ADD KEY `fk_jobpost` (`location`);
+  ADD KEY `fk_job_carr` (`careerId`),
+  ADD KEY `fk_job_loca` (`location`);
 
 --
 -- Indexes for table `job_seeker`
@@ -277,13 +277,6 @@ ALTER TABLE `job_posts`
 --
 ALTER TABLE `admin`
   ADD CONSTRAINT `fk_admin_user` FOREIGN KEY (`email`) REFERENCES `user` (`username`);
-
---
--- Constraints for table `job_posts`
---
-ALTER TABLE `job_posts`
-  ADD CONSTRAINT `fk_jobpost` FOREIGN KEY (`location`) REFERENCES `location` (`locationId`),
-  ADD CONSTRAINT `fk_jobpost_career` FOREIGN KEY (`careerId`) REFERENCES `career` (`careerId`);
 
 --
 -- Constraints for table `job_seeker`
