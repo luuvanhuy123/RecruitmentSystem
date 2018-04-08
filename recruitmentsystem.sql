@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 08, 2018 at 10:38 AM
+-- Generation Time: Apr 08, 2018 at 10:48 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.10
 
@@ -58,10 +58,10 @@ CREATE TABLE `job_posts` (
   `salary` text COLLATE utf8_bin NOT NULL,
   `benefit` text COLLATE utf8_bin,
   `other_information` text COLLATE utf8_bin,
-  `location` int(11) NOT NULL,
   `post_date` text COLLATE utf8_bin NOT NULL,
   `posts_status` int(11) NOT NULL,
-  `careerId` int(11) NOT NULL
+  `carrer_id` int(11) NOT NULL,
+  `location_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
@@ -157,8 +157,8 @@ ALTER TABLE `admin`
 --
 ALTER TABLE `job_posts`
   ADD PRIMARY KEY (`posts_id`),
-  ADD KEY `fk_job_carr` (`careerId`),
-  ADD KEY `fk_job_loca` (`location`);
+  ADD KEY `fk_1` (`carrer_id`),
+  ADD KEY `fk_2` (`location_id`);
 
 --
 -- Indexes for table `job_seeker`
@@ -209,8 +209,8 @@ ALTER TABLE `admin`
 -- Constraints for table `job_posts`
 --
 ALTER TABLE `job_posts`
-  ADD CONSTRAINT `fk_jobpost_carr` FOREIGN KEY (`careerId`) REFERENCES `carrer` (`carrerId`),
-  ADD CONSTRAINT `fk_jobpost_loc` FOREIGN KEY (`location`) REFERENCES `location` (`location`);
+  ADD CONSTRAINT `fk_1` FOREIGN KEY (`carrer_id`) REFERENCES `carrer` (`carrerId`),
+  ADD CONSTRAINT `fk_2` FOREIGN KEY (`location_id`) REFERENCES `location` (`location`);
 
 --
 -- Constraints for table `job_seeker`
