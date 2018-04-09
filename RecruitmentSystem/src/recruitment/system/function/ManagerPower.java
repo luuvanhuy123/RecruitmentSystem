@@ -8,7 +8,6 @@ import recruitment.system.entities.Admin;
 import recruitment.system.entities.JobPost;
 import recruitment.system.entities.JobSeeker;
 import recruitment.system.entities.Recruiter;
-import recruitment.system.entities.Role;
 import recruitment.system.entities.User;
 import recruitment.system.interfaceinf.interfaceManager;
 
@@ -27,9 +26,7 @@ public class ManagerPower extends ConnectDataBase implements interfaceManager {
 	public List<Admin> getAllManager() {
 		listAllManager = new ArrayList<Admin>();
 		query = new Query();
-		ArrayList<Role> listRoles = null;
-		String email, name, address, sex, phoneNumber, username, password, roleName;
-		int roleId;
+		String email, name, address, sex, phoneNumber, username, password;
 		try {
 			resultset = callableStatement(query.getAllManager());
 			while (resultset.next()) {
@@ -38,31 +35,9 @@ public class ManagerPower extends ConnectDataBase implements interfaceManager {
 				sex = resultset.getString("sex");
 				address = resultset.getString("address");
 				phoneNumber = resultset.getString("phone_number");
-				username = resultset.getString("username");
 				password = resultset.getString("password");
-				roleName = resultset.getString("role_name");
-				roleId = resultset.getInt("roleid");
-				Role roleList = new Role(roleId, roleName);
-				listRoles = new ArrayList<>();
-				listRoles.add(roleList);
-				User user = new User(username, password, listRoles);
-				for (int i = 0; i < listAllManager.size(); i++) {
-					if (listAllManager.get(i).getEmail().equals(email)) {
-						if (listAllManager.get(i).getUser().getRoles().size() < 2) {
-							Role roleAdd = new Role(listAllManager.get(i).getUser().getRoles().get(i).getRoleId(),
-									listAllManager.get(i).getUser().getRoles().get(i).getRoleName());
-							listRoles.add(roleAdd);
-						} else {
-							for (int j = listAllManager.get(i).getUser().getRoles().size() - 1; j >= 0; j--) {
-								Role roleAdd = new Role(listAllManager.get(i).getUser().getRoles().get(j).getRoleId(),
-										listAllManager.get(i).getUser().getRoles().get(j).getRoleName());
-								listRoles.add(roleAdd);
-							}
-						}
-						listAllManager.remove(i);
-					}
-
-				}
+				User user = new User();
+				user.setPassword(password);
 				Admin manager = new Admin(email, address, name, phoneNumber, sex, user);
 				listAllManager.add(manager);
 			}

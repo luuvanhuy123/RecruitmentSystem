@@ -22,6 +22,11 @@ public class JobPost implements Serializable {
 	@Lob
 	private String benefit;
 
+	private int careerid;
+
+	@Lob
+	private String date;
+
 	@Lob
 	@Column(name="job_description")
 	private String jobDescription;
@@ -38,103 +43,80 @@ public class JobPost implements Serializable {
 	@Column(name="job_recruitment")
 	private String jobRecruitment;
 
-	@Lob
-	private String location;
+	private int locationid;
 
 	@Lob
-	@Column(name="other_information")
-	private String otherInformation;
-
-	@Lob
-	@Column(name="`post date`")
-	private String post_date;
-
-	@Column(name="posts_status")
-	private int postsStatus;
-
-	@Column(name="posts_type")
-	private String postsType;
+	@Column(name="other_infor")
+	private String otherInfor;
 
 	@Lob
 	private String salary;
 
-	//bi-directional many-to-one association to User
-	@ManyToOne
-	@JoinColumn(name="username")
-	private User user;
+//	private int status;
 
-	//bi-directional many-to-many association to Career
+	//bi-directional many-to-many association to Admin
 	@ManyToMany
 	@JoinTable(
-		name="posts_career"
+		name="admin_his"
 		, joinColumns={
-			@JoinColumn(name="posts_id")
+			@JoinColumn(name="postid")
 			}
 		, inverseJoinColumns={
-			@JoinColumn(name="career_id")
+			@JoinColumn(name="email")
 			}
 		)
-	private List<Career> careers;
+	private List<Admin> admins;
 
-	//bi-directional many-to-one association to RecruiteregistrationHistory
+	//bi-directional many-to-one association to JobseekerHi
 	@OneToMany(mappedBy="jobPost")
-	private List<RecruiteregistrationHistory> recruiteregistrationHistories;
+	private List<JobseekerHi> jobseekerHis;
+
+	//bi-directional many-to-one association to RecruiterHi
+	@OneToMany(mappedBy="jobPost")
+	private List<RecruiterHi> recruiterHis;
 
 	public JobPost() {
 	}
 
-	public JobPost(User user) {
-		super();
-		this.user = user;
-	}
+	
 
-	public JobPost(int postsId, int postsStatus) {
+	public JobPost(int postsId, String benefit, int careerid, String date, String jobDescription, String jobName,
+			String jobPosition, String jobRecruitment, int locationid, String otherInfor, String salary) {
 		super();
 		this.postsId = postsId;
-		this.postsStatus = postsStatus;
-	}
-
-	public JobPost(int postsId,String benefit, String jobDescription, String jobName, String jobPosition,
-			String jobRecruitment, String location, String otherInformation, String post_date, int postsStatus,
-			String postsType, String salary, User user, List<Career> careers) {
-		super();
-		this.postsId=postsId;
 		this.benefit = benefit;
+		this.careerid = careerid;
+		this.date = date;
 		this.jobDescription = jobDescription;
 		this.jobName = jobName;
 		this.jobPosition = jobPosition;
 		this.jobRecruitment = jobRecruitment;
-		this.location = location;
-		this.otherInformation = otherInformation;
-		this.post_date = post_date;
-		this.postsStatus = postsStatus;
-		this.postsType = postsType;
+		this.locationid = locationid;
+		this.otherInfor = otherInfor;
 		this.salary = salary;
-		this.user = user;
-		this.careers = careers;
 	}
 
-	public JobPost(int postsId, String benefit, String jobDescription, String jobName, String jobPosition,
-			String jobRecruitment, String location, String otherInformation, String post_date, int postsStatus,
-			String postsType, String salary, User user, List<Career> careers,
-			List<RecruiteregistrationHistory> recruiteregistrationHistories) {
+
+
+	public JobPost(int postsId, String benefit, int careerid, String date, String jobDescription, String jobName,
+			String jobPosition, String jobRecruitment, int locationid, String otherInfor, String salary,
+			List<RecruiterHi> recruiterHis) {
 		super();
 		this.postsId = postsId;
 		this.benefit = benefit;
+		this.careerid = careerid;
+		this.date = date;
 		this.jobDescription = jobDescription;
 		this.jobName = jobName;
 		this.jobPosition = jobPosition;
 		this.jobRecruitment = jobRecruitment;
-		this.location = location;
-		this.otherInformation = otherInformation;
-		this.post_date = post_date;
-		this.postsStatus = postsStatus;
-		this.postsType = postsType;
+		this.locationid = locationid;
+		this.otherInfor = otherInfor;
 		this.salary = salary;
-		this.user = user;
-		this.careers = careers;
-		this.recruiteregistrationHistories = recruiteregistrationHistories;
+		this.recruiterHis = recruiterHis;
 	}
+
+
 
 	public int getPostsId() {
 		return this.postsId;
@@ -150,6 +132,22 @@ public class JobPost implements Serializable {
 
 	public void setBenefit(String benefit) {
 		this.benefit = benefit;
+	}
+
+	public int getCareerid() {
+		return this.careerid;
+	}
+
+	public void setCareerid(int careerid) {
+		this.careerid = careerid;
+	}
+
+	public String getDate() {
+		return this.date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
 	}
 
 	public String getJobDescription() {
@@ -184,44 +182,20 @@ public class JobPost implements Serializable {
 		this.jobRecruitment = jobRecruitment;
 	}
 
-	public String getLocation() {
-		return this.location;
+	public int getLocationid() {
+		return this.locationid;
 	}
 
-	public void setLocation(String location) {
-		this.location = location;
+	public void setLocationid(int locationid) {
+		this.locationid = locationid;
 	}
 
-	public String getOtherInformation() {
-		return this.otherInformation;
+	public String getOtherInfor() {
+		return this.otherInfor;
 	}
 
-	public void setOtherInformation(String otherInformation) {
-		this.otherInformation = otherInformation;
-	}
-
-	public String getPost_date() {
-		return this.post_date;
-	}
-
-	public void setPost_date(String post_date) {
-		this.post_date = post_date;
-	}
-
-	public int getPostsStatus() {
-		return this.postsStatus;
-	}
-
-	public void setPostsStatus(int postsStatus) {
-		this.postsStatus = postsStatus;
-	}
-
-	public String getPostsType() {
-		return this.postsType;
-	}
-
-	public void setPostsType(String postsType) {
-		this.postsType = postsType;
+	public void setOtherInfor(String otherInfor) {
+		this.otherInfor = otherInfor;
 	}
 
 	public String getSalary() {
@@ -232,51 +206,72 @@ public class JobPost implements Serializable {
 		this.salary = salary;
 	}
 
-	public User getUser() {
-		return this.user;
+//	public int getStatus() {
+//		return this.status;
+//	}
+//
+//	public void setStatus(int status) {
+//		this.status = status;
+//	}
+
+	public List<Admin> getAdmins() {
+		return this.admins;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setAdmins(List<Admin> admins) {
+		this.admins = admins;
 	}
 
-	public List<Career> getCareers() {
-		return this.careers;
+	public List<JobseekerHi> getJobseekerHis() {
+		return this.jobseekerHis;
 	}
 
-	public void setCareers(List<Career> careers) {
-		this.careers = careers;
+	public void setJobseekerHis(List<JobseekerHi> jobseekerHis) {
+		this.jobseekerHis = jobseekerHis;
 	}
 
-	public List<RecruiteregistrationHistory> getRecruiteregistrationHistories() {
-		return this.recruiteregistrationHistories;
+	public JobseekerHi addJobseekerHi(JobseekerHi jobseekerHi) {
+		getJobseekerHis().add(jobseekerHi);
+		jobseekerHi.setJobPost(this);
+		return jobseekerHi;
 	}
 
-	public void setRecruiteregistrationHistories(List<RecruiteregistrationHistory> recruiteregistrationHistories) {
-		this.recruiteregistrationHistories = recruiteregistrationHistories;
+	public JobseekerHi removeJobseekerHi(JobseekerHi jobseekerHi) {
+		getJobseekerHis().remove(jobseekerHi);
+		jobseekerHi.setJobPost(null);
+
+		return jobseekerHi;
 	}
 
-	public RecruiteregistrationHistory addRecruiteregistrationHistory(RecruiteregistrationHistory recruiteregistrationHistory) {
-		getRecruiteregistrationHistories().add(recruiteregistrationHistory);
-		recruiteregistrationHistory.setJobPost(this);
-
-		return recruiteregistrationHistory;
+	public List<RecruiterHi> getRecruiterHis() {
+		return this.recruiterHis;
 	}
 
-	public RecruiteregistrationHistory removeRecruiteregistrationHistory(RecruiteregistrationHistory recruiteregistrationHistory) {
-		getRecruiteregistrationHistories().remove(recruiteregistrationHistory);
-		recruiteregistrationHistory.setJobPost(null);
+	public void setRecruiterHis(List<RecruiterHi> recruiterHis) {
+		this.recruiterHis = recruiterHis;
+	}
 
-		return recruiteregistrationHistory;
+	public RecruiterHi addRecruiterHi(RecruiterHi recruiterHi) {
+		getRecruiterHis().add(recruiterHi);
+		recruiterHi.setJobPost(this);
+		return recruiterHi;
+	}
+
+	public RecruiterHi removeRecruiterHi(RecruiterHi recruiterHi) {
+		getRecruiterHis().remove(recruiterHi);
+		recruiterHi.setJobPost(null);
+
+		return recruiterHi;
 	}
 
 	@Override
 	public String toString() {
-		return "JobPost [postsId=" + postsId + ", benefit=" + benefit + ", jobDescription=" + jobDescription
-				+ ", jobName=" + jobName + ", jobPosition=" + jobPosition + ", jobRecruitment=" + jobRecruitment
-				+ ", location=" + location + ", otherInformation=" + otherInformation + ", post_date=" + post_date
-				+ ", postsStatus=" + postsStatus + ", postsType=" + postsType + ", salary=" + salary + ", user=" + user.UserJobPost()
-				+ ", careers=" + careers + "]";
+		return "JobPost [postsId=" + postsId + ", benefit=" + benefit + ", careerid=" + careerid + ", date=" + date
+				+ ", jobDescription=" + jobDescription + ", jobName=" + jobName + ", jobPosition=" + jobPosition
+				+ ", jobRecruitment=" + jobRecruitment + ", locationid=" + locationid + ", otherInfor=" + otherInfor
+				+ ", salary=" + salary + ", " + recruiterHis + "]";
 	}
+
+	
 
 }

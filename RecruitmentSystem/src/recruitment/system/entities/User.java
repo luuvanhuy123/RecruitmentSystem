@@ -1,16 +1,7 @@
 package recruitment.system.entities;
 
 import java.io.Serializable;
-import java.util.List;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 
 /**
@@ -27,13 +18,11 @@ public class User implements Serializable {
 
 	private String password;
 
+	private int roleId;
+
 	//bi-directional one-to-one association to Admin
 	@OneToOne(mappedBy="user")
 	private Admin admin;
-
-	//bi-directional many-to-one association to JobPost
-	@OneToMany(mappedBy="user")
-	private List<JobPost> jobPosts;
 
 	//bi-directional one-to-one association to JobSeeker
 	@OneToOne(mappedBy="user")
@@ -43,47 +32,13 @@ public class User implements Serializable {
 	@OneToOne(mappedBy="user")
 	private Recruiter recruiter;
 
-	//bi-directional many-to-one association to RecruiteregistrationHistory
-	@OneToMany(mappedBy="user")
-	private List<RecruiteregistrationHistory> recruiteregistrationHistories;
-
-	//bi-directional many-to-many association to Role
-	@ManyToMany
-	@JoinTable(
-		name="user_role"
-		, joinColumns={
-			@JoinColumn(name="username")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="rolenid")
-			}
-		)
-	private List<Role> roles;
-
 	public User() {
 	}
+
 	public User(String username, String password) {
-		this.username = username;
-		this.password = password;
-	}
-	
-	public User(String username, String password, List<Role> roles) {
 		super();
 		this.username = username;
 		this.password = password;
-		this.roles = roles;
-	}
-	public User(String username, String password, Admin admin, List<JobPost> jobPosts, JobSeeker jobSeeker,
-			Recruiter recruiter, List<RecruiteregistrationHistory> recruiteregistrationHistories, List<Role> roles) {
-		super();
-		this.username = username;
-		this.password = password;
-		this.admin = admin;
-		this.jobPosts = jobPosts;
-		this.jobSeeker = jobSeeker;
-		this.recruiter = recruiter;
-		this.recruiteregistrationHistories = recruiteregistrationHistories;
-		this.roles = roles;
 	}
 
 	public String getUsername() {
@@ -102,34 +57,20 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
+	public int getRoleId() {
+		return this.roleId;
+	}
+
+	public void setRoleId(int roleId) {
+		this.roleId = roleId;
+	}
+
 	public Admin getAdmin() {
 		return this.admin;
 	}
 
 	public void setAdmin(Admin admin) {
 		this.admin = admin;
-	}
-
-	public List<JobPost> getJobPosts() {
-		return this.jobPosts;
-	}
-
-	public void setJobPosts(List<JobPost> jobPosts) {
-		this.jobPosts = jobPosts;
-	}
-
-	public JobPost addJobPost(JobPost jobPost) {
-		getJobPosts().add(jobPost);
-		jobPost.setUser(this);
-
-		return jobPost;
-	}
-
-	public JobPost removeJobPost(JobPost jobPost) {
-		getJobPosts().remove(jobPost);
-		jobPost.setUser(null);
-
-		return jobPost;
 	}
 
 	public JobSeeker getJobSeeker() {
@@ -148,45 +89,12 @@ public class User implements Serializable {
 		this.recruiter = recruiter;
 	}
 
-	public List<RecruiteregistrationHistory> getRecruiteregistrationHistories() {
-		return this.recruiteregistrationHistories;
-	}
-
-	public void setRecruiteregistrationHistories(List<RecruiteregistrationHistory> recruiteregistrationHistories) {
-		this.recruiteregistrationHistories = recruiteregistrationHistories;
-	}
-
-	public RecruiteregistrationHistory addRecruiteregistrationHistory(RecruiteregistrationHistory recruiteregistrationHistory) {
-		getRecruiteregistrationHistories().add(recruiteregistrationHistory);
-		recruiteregistrationHistory.setUser(this);
-
-		return recruiteregistrationHistory;
-	}
-
-	public RecruiteregistrationHistory removeRecruiteregistrationHistory(RecruiteregistrationHistory recruiteregistrationHistory) {
-		getRecruiteregistrationHistories().remove(recruiteregistrationHistory);
-		recruiteregistrationHistory.setUser(null);
-
-		return recruiteregistrationHistory;
-	}
-
-	public List<Role> getRoles() {
-		return this.roles;
-	}
-
-	public void setRoles(List<Role> roles) {
-		this.roles = roles;
-	}
 	@Override
 	public String toString() {
-		return "User [username=" + username + ", password=" + password + ", roles=" + roles + "]";
+		return "User [username=" + username + ", password=" + password + ", roleId=" + roleId + "]";
 	}
-	public String User(){
-		return "User [password=" + password + "]";
-
-	}
-	public String UserJobPost(){
-		return "User [username=" + username+ "]";
+	public String toStringPassword(){
+		return "password="+password;
 	}
 
 }

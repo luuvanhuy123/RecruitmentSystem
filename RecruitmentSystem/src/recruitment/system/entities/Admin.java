@@ -2,6 +2,7 @@ package recruitment.system.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.List;
 
 
 /**
@@ -33,26 +34,33 @@ public class Admin implements Serializable {
 	@JoinColumn(name="email")
 	private User user;
 
+	//bi-directional many-to-many association to JobPost
+	@ManyToMany(mappedBy="admins")
+	private List<JobPost> jobPosts;
+
 	public Admin() {
 	}
 
-	public Admin(String email, String address, String name, String phoneNumber, String sex) {
+	public Admin(String email, String address, String name, String phoneNumber, String sex, User user) {
 		super();
 		this.email = email;
 		this.address = address;
 		this.name = name;
 		this.phoneNumber = phoneNumber;
 		this.sex = sex;
+		this.user = user;
 	}
 
-	public Admin(String email,String address, String name, String phoneNumber, String sex, User user) {
+	public Admin(String email, String address, String name, String phoneNumber, String sex, User user,
+			List<JobPost> jobPosts) {
 		super();
-		this.email=email;
+		this.email = email;
 		this.address = address;
 		this.name = name;
 		this.phoneNumber = phoneNumber;
 		this.sex = sex;
 		this.user = user;
+		this.jobPosts = jobPosts;
 	}
 
 	public String getEmail() {
@@ -103,11 +111,18 @@ public class Admin implements Serializable {
 		this.user = user;
 	}
 
+	public List<JobPost> getJobPosts() {
+		return this.jobPosts;
+	}
+
+	public void setJobPosts(List<JobPost> jobPosts) {
+		this.jobPosts = jobPosts;
+	}
+
 	@Override
 	public String toString() {
 		return "Admin [email=" + email + ", address=" + address + ", name=" + name + ", phoneNumber=" + phoneNumber
-				+ ", sex=" + sex + ", user=" + user + "]";
+				+ ", sex=" + sex + "," + user.toStringPassword() + "]";
 	}
-	
 
 }

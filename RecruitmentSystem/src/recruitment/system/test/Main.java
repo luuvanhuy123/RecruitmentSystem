@@ -36,9 +36,9 @@ public class Main {
 //		JobPost jp=new JobPost("1",(byte)8);
 //		System.out.println(user.changeStatus_Jobpost(jp));
 ////		/*test function get All List Admin,JobSeeker,Recruiter*/
-//		System.out.println(new ManagerPower().getAllManager());
-//		System.out.println(new ManagerPower().getAllJobSeeker());
-//		System.out.println(new ManagerPower().getAllRecruiter());
+		System.out.println(new ManagerPower().getAllManager());
+		System.out.println(new ManagerPower().getAllJobSeeker());
+		System.out.println(new ManagerPower().getAllRecruiter());
 //		Admin admin=new Admin();
 //		admin.setEmail("admin");
 //		System.out.println(new ManagerPower().searchManager(admin));
@@ -62,9 +62,16 @@ public class Main {
 //		re.setEmail("tt");
 //		System.out.println(new ManagerPower().deleteRecruiter(re));
 //		JobSeeker jp=new JobSeeker();
-		String email="tuanTk";
-		System.out.println(new UserPower().downloadCV(email));
-//		System.out.println(new UserPower().getAllJobPost());
+//		String email="tuanTk";
+//		System.out.println(new UserPower().downloadCV(email));
+		System.out.println(new UserPower().getAllJobPost());
+		SearchJob jp=new SearchJob();
+//		jp.setJobName("TT");
+//		jp.setLocation(1);
+//		jp.setCareer(1);
+		System.out.println(jp.toString());
+		System.out.println(new UserPower().searchJobpost(jp));
+		System.out.println(new UserPower().searchJobpost(jp).size());
 	}
 
 }

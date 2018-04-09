@@ -1,14 +1,8 @@
 package recruitment.system.entities;
 
 import java.io.Serializable;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 
 /**
@@ -27,6 +21,7 @@ public class JobSeeker implements Serializable {
 	@Lob
 	private byte[] cv;
 
+	@Lob
 	private String name;
 
 	//bi-directional one-to-one association to User
@@ -34,20 +29,16 @@ public class JobSeeker implements Serializable {
 	@JoinColumn(name="email")
 	private User user;
 
+	//bi-directional many-to-one association to JobseekerHi
+	@OneToMany(mappedBy="jobSeeker")
+	private List<JobseekerHi> jobseekerHis;
+
 	public JobSeeker() {
 	}
 
-	public JobSeeker(String email, byte[] cv, String name, User user) {
+	public JobSeeker(String email, String name, User user) {
 		super();
 		this.email = email;
-		this.cv = cv;
-		this.name = name;
-		this.user = user;
-	}
-
-	public JobSeeker(String email,String name, User user) {
-		super();
-		this.email=email;
 		this.name = name;
 		this.user = user;
 	}
@@ -84,12 +75,31 @@ public class JobSeeker implements Serializable {
 		this.user = user;
 	}
 
-	@Override
-	public String toString() {
-		return "JobSeeker [email=" + email + ", name=" + name + ", user=" + user.User() + "]";
+	public List<JobseekerHi> getJobseekerHis() {
+		return this.jobseekerHis;
 	}
 
+	public void setJobseekerHis(List<JobseekerHi> jobseekerHis) {
+		this.jobseekerHis = jobseekerHis;
+	}
 
-	
+	public JobseekerHi addJobseekerHi(JobseekerHi jobseekerHi) {
+		getJobseekerHis().add(jobseekerHi);
+		jobseekerHi.setJobSeeker(this);
+
+		return jobseekerHi;
+	}
+
+	public JobseekerHi removeJobseekerHi(JobseekerHi jobseekerHi) {
+		getJobseekerHis().remove(jobseekerHi);
+		jobseekerHi.setJobSeeker(null);
+
+		return jobseekerHi;
+	}
+
+	@Override
+	public String toString() {
+		return "JobSeeker [email=" + email + ", name=" + name + ", " + user.toStringPassword() + "]";
+	}
 
 }

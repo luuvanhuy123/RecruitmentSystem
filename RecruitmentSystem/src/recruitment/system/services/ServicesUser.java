@@ -12,12 +12,22 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import recruitment.system.entities.Admin;
+import recruitment.system.entities.JobPost;
+import recruitment.system.function.ManagerPower;
 import recruitment.system.function.UserPower;
 
 @Path("/user")
 public class ServicesUser extends UserPower {
 	public ServicesUser(){
 		super();
+	}
+	@POST
+	@Path("/listjobposts")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<JobPost> getListJobPosts() {
+		UserPower listJ=new UserPower();
+		return listJ.getAllJobPost();
 	}
 	
 	@GET

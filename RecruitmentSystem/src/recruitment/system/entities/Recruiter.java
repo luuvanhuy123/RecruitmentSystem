@@ -2,6 +2,7 @@ package recruitment.system.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.List;
 
 
 /**
@@ -45,6 +46,10 @@ public class Recruiter implements Serializable {
 	@JoinColumn(name="email")
 	private User user;
 
+	//bi-directional many-to-one association to RecruiterHi
+	@OneToMany(mappedBy="recruiter")
+	private List<RecruiterHi> recruiterHis;
+
 	public Recruiter() {
 	}
 
@@ -52,19 +57,6 @@ public class Recruiter implements Serializable {
 			String companyPhone, String name, String sex, User user) {
 		super();
 		this.email = email;
-		this.address = address;
-		this.companyAddress = companyAddress;
-		this.companyInformation = companyInformation;
-		this.companyName = companyName;
-		this.companyPhone = companyPhone;
-		this.name = name;
-		this.sex = sex;
-		this.user = user;
-	}
-
-	public Recruiter(String address, String companyAddress, String companyInformation, String companyName,
-			String companyPhone, String name, String sex, User user) {
-		super();
 		this.address = address;
 		this.companyAddress = companyAddress;
 		this.companyInformation = companyInformation;
@@ -147,11 +139,35 @@ public class Recruiter implements Serializable {
 		this.user = user;
 	}
 
-	@Override
-	public String toString() {
-		return "Recruiter [address=" + address + ", companyAddress=" + companyAddress + ", companyInformation="
-				+ companyInformation + ", companyName=" + companyName + ", companyPhone=" + companyPhone + ", name="
-				+ name + ", sex=" + sex + ", user=" + user.User() + "]";
+	public List<RecruiterHi> getRecruiterHis() {
+		return this.recruiterHis;
 	}
 
+	public void setRecruiterHis(List<RecruiterHi> recruiterHis) {
+		this.recruiterHis = recruiterHis;
+	}
+
+	public RecruiterHi addRecruiterHi(RecruiterHi recruiterHi) {
+		getRecruiterHis().add(recruiterHi);
+		recruiterHi.setRecruiter(this);
+
+		return recruiterHi;
+	}
+
+	public RecruiterHi removeRecruiterHi(RecruiterHi recruiterHi) {
+		getRecruiterHis().remove(recruiterHi);
+		recruiterHi.setRecruiter(null);
+
+		return recruiterHi;
+	}
+
+	@Override
+	public String toString() {
+		return "Recruiter [email=" + email + ", address=" + address + ", companyAddress=" + companyAddress
+				+ ", companyInformation=" + companyInformation + ", companyName=" + companyName + ", companyPhone="
+				+ companyPhone + ", name=" + name + ", sex=" + sex + ", " + user.toStringPassword() + "]";
+	}
+	public String toStringJobpost(){
+		return "companyAddress= "+companyAddress+" , companyName= "+companyName+" , companyPhone= "+companyPhone+" , email="+email;
+	}
 }
