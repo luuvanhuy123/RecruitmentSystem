@@ -4,10 +4,13 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.sql.Blob;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.PreparedStatement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 
 import database.query.method.Query;
 import recruitment.system.entities.JobPost;
@@ -26,15 +29,37 @@ public class UserPower extends ConnectDataBase implements InterfaceUser {
 	}
 
 	@Override
-	public boolean jobPost(JobPost jobpost) {
+	public int jobPost(JobPost jobpost) {
 		try {
-
+			PreparedStatement ps = null;
+			String sql = "INSERT INTO job_posts"
+					+ "(job_name, job_position, job_description,job_recruitment,"
+					+ "salary,benafit,other_infor,date,status,carrerid,locationid,email) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+			ps = connection.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
+			ps.setString(1, jobpost.getJobName());
+			ps.setString(2, jobpost.getJobPosition());
+			ps.setString(3, jobpost.getJobDescription());
+			ps.setString(4, jobpost.getJobRecruitment());
+			ps.setString(5, jobpost.getSalary());
+			ps.setString(6, jobpost.getBenefit());
+			ps.setString(7, jobpost.getOtherInfor());
+			ps.setString(8, jobpost.getDate());
+			ps.setInt(9, 1);
+			ps.setInt(10, 1);
+			ps.setInt(11, 1);
+			ps.setString(12, jobpost.getUsername());
+			ps.execute();
+			resultset = ps.getGeneratedKeys();
+			int key = 0;
+			if(resultset.next())
+				key = resultset.getInt(1);
+			return key;
 		} catch (Exception e) {
 			// TODO: handle exception
 		} finally {
 			finallyConnect(resultset);
 		}
-		return false;
+		return 0;
 	}
 
 	@Override
@@ -201,6 +226,24 @@ public class UserPower extends ConnectDataBase implements InterfaceUser {
 		SimpleDateFormat ft = new SimpleDateFormat("dd/MM/yyyy");
 		String d = (String) ft.format(date.getTime());
 		return d;
+	}
+
+	@Override
+	public boolean registryJobPost(String email, int potsid) {
+		String test = "SELECT * FROM jobseeker_his WHERE email = '" + email +"' AND postsid = " +potsid ;
+		String sql = "INSERT INTO jobseeker_his(email,postid,status) VALUES('" + email + "'," + potsid + ",'DANG DUYET')" ;
+		try {
+			resultset = resultset(test);
+			if(resultset != null)
+				return false;
+			executeUpdate(sql);
+		}
+		catch (Exception e) {
+		}
+		finally {
+			finallyConnect(resultset);
+		}
+		return true;
 	}
 
 }

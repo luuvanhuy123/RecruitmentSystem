@@ -8,7 +8,7 @@ import recruitment.system.function.SearchJob;
 
 public interface InterfaceUser {
 	//create new jobPost
-	public abstract boolean jobPost(JobPost jobpost);//constructor full
+	public abstract int jobPost(JobPost jobpost);//constructor full
 	//Get List All Job Post
 	public abstract List<JobPost> getAllJobPost();
 	//Search JobPost By AnyThing | example: id,date,location... you can consult constructor below
@@ -17,4 +17,6 @@ public interface InterfaceUser {
 	public abstract boolean changeStatus_Jobpost(JobPost jobpost);//constructor(id);
 	//Download CV
 	public abstract boolean downloadCV(String jobseeker);
+	// registry jonPost
+	public abstract boolean registryJobPost(String email, int potsid);
 }

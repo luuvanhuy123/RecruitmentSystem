@@ -31,6 +31,14 @@ public class ConnectDataBase {
 			e.printStackTrace();
 		}
 	}
+	protected void executeUpdate(String sql) {
+		try {
+			statement = connection.createStatement();
+			statement.executeUpdate(sql);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
 	protected ResultSet resultset(String sql){
 		try {
 			statement = connection.createStatement();
