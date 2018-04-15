@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 08, 2018 at 11:21 AM
+-- Generation Time: Apr 15, 2018 at 08:43 AM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 5.6.33
 
@@ -57,7 +57,7 @@ CREATE TABLE `jobseeker_his` (
   `email` varchar(100) COLLATE utf8_bin NOT NULL,
   `postid` bigint(20) NOT NULL,
   `status` text COLLATE utf8_bin NOT NULL,
-  `feedback` text COLLATE utf8_bin NOT NULL
+  `feedback` text COLLATE utf8_bin
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
@@ -78,8 +78,26 @@ CREATE TABLE `job_posts` (
   `date` text COLLATE utf8_bin NOT NULL,
   `status` int(11) NOT NULL,
   `carrerid` int(11) NOT NULL,
-  `locationid` int(11) NOT NULL
+  `locationid` int(11) NOT NULL,
+  `email` varchar(100) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `job_posts`
+--
+
+INSERT INTO `job_posts` (`posts_id`, `job_name`, `job_position`, `job_description`, `job_recruitment`, `salary`, `benafit`, `other_infor`, `date`, `status`, `carrerid`, `locationid`, `email`) VALUES
+(14, 'java', 'develop', 'back-end', 'java ee', '10tr - 20tr', NULL, 'none', '208', 1, 1, 1, 'admin'),
+(15, 'sdsad', 'dsadsa', 'dsads', 'dsad', 'asdsa', NULL, 'adsa', '04/13/2018 02:27:18 pm', 1, 1, 1, 'admin'),
+(16, 'dsad', 'dsad', 'dsa', 'da', 'da', NULL, 'd', '04/13/2018 02:31:05 pm', 1, 1, 1, 'admin'),
+(17, 'java', 'sdasd', 'dsadas', 'ad', 'asdsa', NULL, 'dsad', '04/13/2018 03:18:21 pm', 1, 12, 12, 'admin'),
+(18, 'dads', 'sdas', 'dsda', 'afs', 'sfas', NULL, 'sfs', '04/14/2018 08:12:40 am', 1, 6, 6, 'admin'),
+(19, 'dsadsa;', 'dasdas', 'sadsa', 'sada', 'dsad', NULL, 'sfs', '04/14/2018 08:12:58 am', 1, 1, 1, 'admin'),
+(20, 'dasda', 'dsds', 'dsad', 'sdas', 'dasd', NULL, 'dasd', '04/14/2018 08:13:42 am', 1, 1, 1, 'admin'),
+(21, 'da', 'dsa[l', 'sdas\'', 'd\'as;da', 'dassa', NULL, 'dsadas', '04/14/2018 08:16:50 am', 1, 1, 1, 'admin'),
+(22, 'dasdas', 'dada', 'dsad', 'dasds', 'dsad', NULL, 'dasdsa', '04/14/2018 08:21:20 am', 1, 1, 1, 'admin'),
+(23, 'sa', 'lasfla', ';sf;', ';fls;fs', 'dskjfksdj', NULL, 'fdsfsl', '04/14/2018 08:21:46 am', 1, 1, 1, 'admin'),
+(24, 'java', 'boss', 'manager', 'girl', '50tr', NULL, 'null', '04/14/2018 02:08:26 pm', 1, 6, 30, 'admin');
 
 -- --------------------------------------------------------
 
@@ -90,8 +108,15 @@ CREATE TABLE `job_posts` (
 CREATE TABLE `job_seeker` (
   `email` varchar(100) COLLATE utf8_bin NOT NULL,
   `name` text COLLATE utf8_bin NOT NULL,
-  `CV` blob NOT NULL
+  `CV` blob
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `job_seeker`
+--
+
+INSERT INTO `job_seeker` (`email`, `name`, `CV`) VALUES
+('admin', 'huy', NULL);
 
 -- --------------------------------------------------------
 
@@ -110,17 +135,12 @@ CREATE TABLE `recruiter` (
   `company_information` text COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `recruiter_his`
+-- Dumping data for table `recruiter`
 --
 
-CREATE TABLE `recruiter_his` (
-  `email` varchar(100) COLLATE utf8_bin NOT NULL,
-  `postid` bigint(20) NOT NULL,
-  `status` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+INSERT INTO `recruiter` (`email`, `name`, `sex`, `address`, `company_name`, `company_address`, `company_phone`, `company_information`) VALUES
+('admin', 'ADMIN', 'F', 'F', 'F', 'F', 'F', 'F');
 
 -- --------------------------------------------------------
 
@@ -133,6 +153,13 @@ CREATE TABLE `user` (
   `password` varchar(100) COLLATE utf8_bin NOT NULL,
   `roleId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`username`, `password`, `roleId`) VALUES
+('admin', 'admin', 1);
 
 --
 -- Indexes for dumped tables
@@ -162,7 +189,8 @@ ALTER TABLE `jobseeker_his`
 -- Indexes for table `job_posts`
 --
 ALTER TABLE `job_posts`
-  ADD PRIMARY KEY (`posts_id`);
+  ADD PRIMARY KEY (`posts_id`),
+  ADD KEY `email` (`email`);
 
 --
 -- Indexes for table `job_seeker`
@@ -175,13 +203,6 @@ ALTER TABLE `job_seeker`
 --
 ALTER TABLE `recruiter`
   ADD PRIMARY KEY (`email`);
-
---
--- Indexes for table `recruiter_his`
---
-ALTER TABLE `recruiter_his`
-  ADD PRIMARY KEY (`postid`,`email`) USING BTREE,
-  ADD KEY `email` (`email`);
 
 --
 -- Indexes for table `user`
@@ -197,7 +218,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `job_posts`
 --
 ALTER TABLE `job_posts`
-  MODIFY `posts_id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `posts_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- Constraints for dumped tables
@@ -224,6 +245,12 @@ ALTER TABLE `jobseeker_his`
   ADD CONSTRAINT `jobseeker_his_ibfk_2` FOREIGN KEY (`postid`) REFERENCES `job_posts` (`posts_id`);
 
 --
+-- Constraints for table `job_posts`
+--
+ALTER TABLE `job_posts`
+  ADD CONSTRAINT `job_posts_ibfk_1` FOREIGN KEY (`email`) REFERENCES `recruiter` (`email`);
+
+--
 -- Constraints for table `job_seeker`
 --
 ALTER TABLE `job_seeker`
@@ -234,13 +261,6 @@ ALTER TABLE `job_seeker`
 --
 ALTER TABLE `recruiter`
   ADD CONSTRAINT `recruiter_ibfk_1` FOREIGN KEY (`email`) REFERENCES `user` (`username`);
-
---
--- Constraints for table `recruiter_his`
---
-ALTER TABLE `recruiter_his`
-  ADD CONSTRAINT `recruiter_his_ibfk_1` FOREIGN KEY (`email`) REFERENCES `recruiter` (`email`),
-  ADD CONSTRAINT `recruiter_his_ibfk_2` FOREIGN KEY (`postid`) REFERENCES `job_posts` (`posts_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
