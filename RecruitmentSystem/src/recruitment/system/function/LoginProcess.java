@@ -25,7 +25,7 @@ public class LoginProcess extends ConnectDataBase implements SignInterface{
 				_username = resultset.getString("username");
 				_password = resultset.getString("password");
 				if(user.getUsername().equals(_username) && user.getPassword().equals(_password)) {
-					ResultSet re = statement.executeQuery("select * from user_role where username = '" + user.getUsername() + "'");
+					ResultSet re = statement.executeQuery("select * from user where username = '" + user.getUsername() + "'");
 					int roleId = 0;
 					while(re.next()) {
 						return roleId = re.getInt("roleId");

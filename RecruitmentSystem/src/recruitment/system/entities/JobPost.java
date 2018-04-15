@@ -53,6 +53,8 @@ public class JobPost implements Serializable {
 	private String salary;
 	@Lob
 	private String username;
+	@Lob
+	private int status;
 //	private int status;
 
 	//bi-directional many-to-many association to Admin
@@ -117,8 +119,20 @@ public class JobPost implements Serializable {
 		this.recruiterHis = recruiterHis;
 	}
 
+	public int getStatus() {
+		return status;
+	}
+
+
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+
+
 	public JobPost(String jobName, String jobPosition, String jobDescription, String jobRecruitment, String salary,
-			String benafit, String otherInfor, String date, int careerid, int locationid,String username) {
+			String benafit, String otherInfor, String date,int status, int careerid, int locationid,String username) {
 		super();
 		this.postsId = 0;
 		this.benefit = benefit;
@@ -133,8 +147,26 @@ public class JobPost implements Serializable {
 		this.salary = salary;
 		this.recruiterHis = recruiterHis;
 		this.username = username;
+		this.status = status;
 	}
 
+	public JobPost(int postId,String jobName, String jobPosition, String jobDescription, String jobRecruitment, String salary,
+			String benafit, String otherInfor, String date, int careerid, int locationid,String username) {
+		super();
+		this.postsId = postId;
+		this.benefit = benefit;
+		this.careerid = careerid;
+		this.date = date;
+		this.jobDescription = jobDescription;
+		this.jobName = jobName;
+		this.jobPosition = jobPosition;
+		this.jobRecruitment = jobRecruitment;
+		this.locationid = locationid;
+		this.otherInfor = otherInfor;
+		this.salary = salary;
+		this.recruiterHis = recruiterHis;
+		this.username = username;
+	}
 	public int getPostsId() {
 		return this.postsId;
 	}

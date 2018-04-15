@@ -19,4 +19,6 @@ public interface InterfaceUser {
 	public abstract boolean downloadCV(String jobseeker);
 	// registry jonPost
 	public abstract boolean registryJobPost(String email, int potsid);
+	//get history
+	public abstract List<JobPost> getHistoryPost(String username);
 }

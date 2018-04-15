@@ -73,7 +73,7 @@ public class Main {
 //		System.out.println(new UserPower().searchJobpost(jp));
 //		System.out.println(new UserPower().searchJobpost(jp).size());
 		System.out.println(new UserPower().jobPost(new JobPost("java", "develop", "back-end", "java ee", "10tr - 20tr",
-				"thoa thuan", "none", "208", 1, 1,"admin")));
+				"thoa thuan", "none", "208", 1,1, 1,"admin")));
 		//System.out.println(new UserPower().registryJobPost("admin", 4));
 	}
 

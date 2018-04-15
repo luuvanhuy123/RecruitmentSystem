@@ -44,9 +44,9 @@ public class UserPower extends ConnectDataBase implements InterfaceUser {
 			ps.setString(6, jobpost.getBenefit());
 			ps.setString(7, jobpost.getOtherInfor());
 			ps.setString(8, jobpost.getDate());
-			ps.setInt(9, 1);
-			ps.setInt(10, 1);
-			ps.setInt(11, 1);
+			ps.setInt(9, jobpost.getStatus());
+			ps.setInt(10, jobpost.getCareerid());
+			ps.setInt(11, jobpost.getLocationid());
 			ps.setString(12, jobpost.getUsername());
 			ps.execute();
 			resultset = ps.getGeneratedKeys();
@@ -244,6 +244,39 @@ public class UserPower extends ConnectDataBase implements InterfaceUser {
 			finallyConnect(resultset);
 		}
 		return true;
+	}
+
+	@Override
+	public List<JobPost> getHistoryPost(String username) {
+		// TODO Auto-generated method stub
+		List<JobPost> list = new ArrayList<>();
+		String jobName, jobPosition, jobDescription, jobRecruitment, salary, benefit, otherInformation, postDate;
+		int postsId, postsStatus, careerId, location;
+		String sql = "SELECT * FROM job_posts where email = '" + username +"'";
+		resultset = resultset(sql);
+		try {
+			while(resultset.next()) {
+				postsId = resultset.getInt("posts_id");
+				jobName = resultset.getString("job_name");
+				jobPosition = resultset.getString("job_position");
+				jobDescription = resultset.getString("job_description");
+				jobRecruitment = resultset.getString("job_recruitment");
+				salary = resultset.getString("salary");
+				benefit = resultset.getString("benafit");
+				otherInformation = resultset.getString("other_infor");
+				location = resultset.getInt("locationid");
+				postDate = resultset.getString("date");
+				postsStatus = resultset.getInt("status");
+				username = resultset.getString("email");
+				careerId = resultset.getInt("carrerid");
+				list.add(new JobPost(postsId, jobName, jobPosition, jobDescription, jobRecruitment, salary
+						, benefit, otherInformation, postDate, postsStatus, careerId,username));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
 	}
 
 }
