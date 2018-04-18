@@ -1,0 +1,127 @@
+body{
+	font-family: Tahoma;
+	font-size: 13px;
+	width: 100%;
+	margin:0px auto
+}
+.menu{
+	background: #D8D8D8;
+	height: 30px;
+	width: 100%;
+}
+.menu .element{
+	padding: 5px 0px 0px 850px;
+}
+.menu .element .tab{
+	opacity: 0.3;
+	font-size: 15px;
+	font-weight: 100;
+}
+.menu .element a{
+	cursor: pointer;
+	letter-spacing: 1px;
+	padding: 7px 0px 7px 0px;
+}
+.menu .element .menuH:hover{
+	padding:7px 0px 7px 0px; 
+	background: #E6E6E6;
+	border-radius: 3px;
+	border-width: 1px;
+}
+#searchBar{
+	margin: -11px 0px 0px 0px;
+	background-image: url("../images/search.jpg");
+	height: 70px;
+	width: 100%;
+	text-align: center;
+}
+#searchBar .form{
+        border: none;
+        padding: 20px 32px;
+        text-decoration: none;
+        margin: 11px 0px;
+        cursor: pointer;
+
+	}
+#searchBar .form .button{
+	border: 1px solid;
+	border-radius: 10px;
+	width: 300px;
+    height: 40px;
+    font-size: 20px;
+}
+li{
+	list-style: none;
+}
+#searchBar .form #search{
+	border-radius: 10px;
+	height: 30px;
+	width: 70px;
+	font-size: 20px;
+}
+#searchBar .form #search:hover{
+	border-radius: 10px;
+	background: #D8D8D8;
+	cursor: pointer;
+	height: 30px;
+	width: 70px;
+}
+#countInfo{
+	text-align: center;
+	margin: -16px 0px -18px 0px;
+	background-image: url("../images/count.png");
+	height: 30px;
+	border-bottom: 1px solid #ccc;
+
+}
+#countInfo #info{
+	padding: 5px 0px 0px 0px;
+}
+#main{
+	background: #0B4C5F;
+}
+#main ul{
+	background: #F2F2F2;
+	margin: 0px 0px 0px 0px;
+}
+#main ul li{
+margin: 0px 0px -9px -37px	;
+border-bottom: 1px solid #ccc;
+}
+#main ul li h1{
+	margin: 18px 0px 0px 73px;
+}
+#main ul li img{
+	margin: 0px 15px 0px 6px;
+	float: left;
+}
+#main ul li #address{
+	margin: 0px 12px 0px 0px;
+	float: left;
+}
+#main ul li #status{
+	margin: 14px 0px 0px 170px;
+}
+#main ul li .tab{
+	float: left;
+	opacity: 0.3;
+	font-size: 13px;
+	font-weight: 100;
+	margin: 0px 10px 0px 0px
+}
+#main ul li #chitiet{
+	margin: 0px 0px 0px 18px;
+}
+#footer{
+	height: 50px;
+	background: blue;
+
+}
+buton{
+	border-radius: 10px;
+}
+button:hover{
+	background: #A9E2F3;
+	border-radius: 10px;
+
+}

@@ -6,39 +6,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>WELL COM TO MY WEBSITE</title>
-	<link rel="stylesheet" type="text/css" href="css.css">
-	<link rel="stylesheet" type="text/css" href="luyentapcss.css">
-</head>
+	<title>WELLCOME TO MY WEBSITE</title>
+	<link rel="stylesheet" type="text/css" href="css/trangchu.css">
+ 	</head>
 <body>
 	<?php
 	if(isset($_SESSION['username']) && isset($_SESSION['typeuser'])){
 		?>
-		<div align="right">
-			<?php echo $_SESSION['username']?>
-			<button onclick="history()">QUAN LY TAI KHOAN</button>
+		<div class="menu">
+			<div class="element">
+				<?php echo $_SESSION['username']?> <b class="tab"> | </b>
+			<a class="menuH" onclick="history()">QUẢN LÝ TÀI KHOẢN</a>
 				<?php
 					if($_SESSION['typeuser'] == "1"){
-				?>
-					<button onclick="postjob()">DANG BAI</button>
-				<?php }?>
-			<button onclick="logout()">THOAT</button>
+				?><b class="tab"> | </b>
+					<a class="menuH" onclick="postjob()">ĐĂNG BÀI</a>
+				<?php }?><b class="tab"> | </b>
+			<a class="menuH" onclick="logout()">THOÁT</a>
+			</div>
+			
 		</div>
 		<?php
 	}
 	else{
 	?>
-	<div align="right">
-		<button name="login" onclick="loginProcess()">DANG NHAP</button>
-		<button name="regisforjobseek">DANG KI</button>
-		<button name="regisforrecruiter">DANG KY NHA TUYEN DUNG</button>
+	<div class="menu">
+		<div class="element">
+		<a class="menuH" name="login" onclick="loginProcess()">ĐĂNG NHẬP </a> <b class="tab"> | </b>
+		<a class="menuH" name="regisforjobseek">ĐĂNG KÝ</a><b class="tab"> |
+		</b>
+		<a class="menuH" name="regisforrecruiter">ĐĂNG KÝ NHÀ TUYỂN DỤNG</a>
+		</div>
 	</div>
 	<?php
 		}
 	?>
-	<div align="center" style="font-size:150%; font-family : tahoma;">
+	<div id="searchBar">
 		<form class="form" method="post">
-			<input class="button" type="text" name="findbox" placeholder="Enter something">
+			<input class="button" type="text" name="findbox" placeholder="   Enter something">
 			<select class="button" name="carrer">
 				<option value="0">tất cả ngành nghề</option>
 				<option value="1">Kinh doanh</option>
@@ -98,7 +103,7 @@
 				<option value="55">Y Tế</option>
 			</select>
 			<select class="button" name="dist" >
-				    <option value="0">Tat ca dia diem</option>
+				    <option value="0">Tất Cả Địa Điểm</option>
 					<option value="1">An Giang</option>
 					<option value="2">Bà Rịa-Vũng Tàu</option>
 					<option value="3">Bạc Liêu</option>
@@ -164,7 +169,7 @@
 					<option value="63">Vĩnh Phúc</option>
 					<option value="64">Yên Bá</option>
 			</select>
-			<button class="button" type="submit">TIM</button>
+			<button id="search" type="submit">Tìm</button>
 		</form>
 	</div>
 	<?php
@@ -185,11 +190,10 @@
 	        $info = curl_getinfo($ch);
 	        $array = json_decode($output,true);
 	?>
-	<div align="center" style="font-size: 150%; background-color: pink">
-		<h2>So cong viec da tim thay: <?php echo count($array);?></h2>
+	<div id="countInfo">
+		<h2 id="info">KẾT QUẢ TÌM KIẾM: <?php echo count($array);?></h2>
 	</div>
-	<div>
-		<div id="left">
+		<div id="main">
 			<form action="jobdetail.php" method="POST">
 				<ul>
 				<?php
@@ -197,22 +201,19 @@
 				?>
 					<li>
 						<input type="hidden" name="postId" value="<?php echo $a['postsId']; ?>">
-						<h1><?php echo $a['jobName']; ?></h1>
-						<?php
-						echo $a['company_name'];
-						echo "<br/>"; 
-						echo $a['company_addres'];
-						echo "<br/>";
-						echo $a['date'];
-						?>
-						<button onclick="jobdetail()">CHI TIET</button>
+						<img src="images/avatar.png" height="80px" width="80px">
+						<h1 style="text-decoration: underline;"><?php echo $a['jobName']; ?></h1>
+						<p><?php echo $a['company_name'];?></p>
+						<p id="address" style="opacity: 0.7">Khu Vực: <?php echo $a['company_addres']; ?></p><b class="tab"> | </b>
+						<p id="status"> Đã Đăng: <?php echo $a['date'];?></p>
+						<button id="chitiet" onclick="jobdetail()">CHI TIẾT</button>
 					</li>
 				<?php }
 				?>
 				</ul>
 			</form>
 		</div>
-	</div>
+		
 	<script type="text/javascript">
 		function loginProcess() {
 			window.location = "formlogin.php";
