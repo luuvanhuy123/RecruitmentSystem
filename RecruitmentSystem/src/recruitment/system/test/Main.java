@@ -1,6 +1,8 @@
 package recruitment.system.test;
 import recruitment.system.function.*;
 
+import java.util.List;
+
 import javax.enterprise.inject.New;
 
 import recruitment.system.entities.*;
@@ -64,16 +66,19 @@ public class Main {
 //		JobSeeker jp=new JobSeeker();
 //		String email="tuanTk";
 //		System.out.println(new UserPower().downloadCV(email));
-//		System.out.println(new UserPower().getAllJobPost());
-//		SearchJob jp=new SearchJob();
-//		jp.setJobName("TT");
-//		jp.setLocation(1);
-//		jp.setCareer(1);
-//		System.out.println(jp.toString());
-//		System.out.println(new UserPower().searchJobpost(jp));
-//		System.out.println(new UserPower().searchJobpost(jp).size());
-		System.out.println(new UserPower().jobPost(new JobPost("java", "develop", "back-end", "java ee", "10tr - 20tr",
-				"thoa thuan", "none", "208", 1,1, 1,"admin")));
+//		List<JobPostInf> l = new UserPower().getAllJobPost();
+//		for(JobPostInf p : l) {
+//			System.out.println(p);
+//		}
+////		SearchJob jp=new SearchJob();
+////		jp.setJobName("TT");
+////		jp.setLocation(1);
+////		jp.setCareer(1);
+////		System.out.println(jp.toString());
+////		System.out.println(new UserPower().searchJobpost(jp));
+////		System.out.println(new UserPower().searchJobpost(jp).size());
+//		System.out.println(new UserPower().jobPost(new JobPost("java", "develop", "back-end", "java ee", "10tr - 20tr",
+//				"thoa thuan", "none", "208", 0,1, 1,"admin")));
 		//System.out.println(new UserPower().registryJobPost("admin", 4));
 	}
 

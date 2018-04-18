@@ -70,8 +70,6 @@ public class JobPost implements Serializable {
 		)
 	private List<Admin> admins;
 
-	//bi-directional many-to-one association to JobseekerHi
-	@OneToMany(mappedBy="jobPost")
 	private List<JobseekerHi> jobseekerHis;
 
 	//bi-directional many-to-one association to RecruiterHi
@@ -285,18 +283,6 @@ public class JobPost implements Serializable {
 		this.jobseekerHis = jobseekerHis;
 	}
 
-	public JobseekerHi addJobseekerHi(JobseekerHi jobseekerHi) {
-		getJobseekerHis().add(jobseekerHi);
-		jobseekerHi.setJobPost(this);
-		return jobseekerHi;
-	}
-
-	public JobseekerHi removeJobseekerHi(JobseekerHi jobseekerHi) {
-		getJobseekerHis().remove(jobseekerHi);
-		jobseekerHi.setJobPost(null);
-
-		return jobseekerHi;
-	}
 
 	public List<RecruiterHi> getRecruiterHis() {
 		return this.recruiterHis;

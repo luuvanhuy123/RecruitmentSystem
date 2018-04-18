@@ -14,6 +14,9 @@ import java.util.List;
 
 import database.query.method.Query;
 import recruitment.system.entities.JobPost;
+import recruitment.system.entities.JobPostInf;
+import recruitment.system.entities.JobseekerHi;
+import recruitment.system.entities.JobseekerHis;
 import recruitment.system.entities.Recruiter;
 import recruitment.system.entities.RecruiterHi;
 import recruitment.system.entities.User;
@@ -21,8 +24,8 @@ import recruitment.system.interfaceinf.InterfaceUser;
 
 public class UserPower extends ConnectDataBase implements InterfaceUser {
 	Query query = new Query();
-	private List<JobPost> listAllJobPost;
-	private List<JobPost> listSearchJobpost;
+	private List<JobPostInf> listAll;
+	private List<JobPostInf> listSearchJobpost;
 
 	public UserPower() {
 		super();
@@ -63,22 +66,23 @@ public class UserPower extends ConnectDataBase implements InterfaceUser {
 	}
 
 	@Override
-	public List<JobPost> getAllJobPost() {
-		listAllJobPost = new ArrayList<>();
-		query = new Query();
+	public JobPostInf jobDetail(int postformId) {
+		JobPostInf jobPostInf = null;
 		String jobName, jobPosition, jobDescription, jobRecruitment, salary, benefit, otherInformation, postDate,
 				companyName, username, companyAddress, companyPhone;
 		int postsId, postsStatus, careerId, location;
 		try {
-			resultset = callableStatement(query.getAllJobPost());
-			while (resultset.next()) {
+			String sql = "SELECT * FROM job_posts j join recruiter r on r.email = j.email where posts_id = " + postformId;
+			System.out.println();
+			resultset = resultset(sql);
+			if (resultset.next()) {
 				postsId = resultset.getInt("posts_id");
 				jobName = resultset.getString("job_name");
 				jobPosition = resultset.getString("job_position");
 				jobDescription = resultset.getString("job_description");
 				jobRecruitment = resultset.getString("job_recruitment");
 				salary = resultset.getString("salary");
-				benefit = resultset.getString("benefit");
+				benefit = resultset.getString("benafit");
 				otherInformation = resultset.getString("other_infor");
 				location = resultset.getInt("locationid");
 				postDate = resultset.getString("date");
@@ -87,79 +91,82 @@ public class UserPower extends ConnectDataBase implements InterfaceUser {
 				companyPhone = resultset.getString("company_phone");
 				postsStatus = resultset.getInt("status");
 				username = resultset.getString("email");
-				careerId = resultset.getInt("careerid");
-				Recruiter recruiter = new Recruiter();
-				recruiter.setEmail(username);
-				recruiter.setCompanyAddress(companyAddress);
-				recruiter.setCompanyName(companyName);
-				recruiter.setCompanyPhone(companyPhone);
-				RecruiterHi reHis = new RecruiterHi(postsStatus, recruiter);
-				ArrayList<RecruiterHi> listRe = new ArrayList<>();
-				listRe.add(reHis);
-				JobPost jPost = new JobPost(postsId, benefit, careerId, postDate, jobDescription, jobName, jobPosition,
-						jobRecruitment, location, otherInformation, salary, listRe);
-				listAllJobPost.add(jPost);
+				careerId = resultset.getInt("carrerid");
+				jobPostInf = new JobPostInf(postsId, benefit, careerId, postDate, jobDescription, jobName, jobPosition, companyAddress, location, otherInformation, salary, username, postsStatus, companyName, companyAddress, companyPhone);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			finallyConnect(resultset);
 		}
-		return this.listAllJobPost;
+		return jobPostInf;
 	}
 
 	@Override
-	public List<JobPost> searchJobpost(SearchJob jobpost) {
-		this.getAllJobPost();
-		listSearchJobpost = new ArrayList<JobPost>();
+	public List<JobPostInf> searchJobpost(SearchJob jobpost) {
+		listSearchJobpost = new ArrayList<JobPostInf>();
+		String jobName, jobPosition, jobDescription, jobRecruitment, salary, benefit, otherInformation, postDate,
+		companyName, username, companyAddress, companyPhone;
+		int postsId, postsStatus, careerId, location;
+		String sql = "";
 		try {
-			if (jobpost.getJobName() == null) {
-				for (int i = 0; i <listAllJobPost.size(); i++) {
-					if (listAllJobPost.get(i).getCareerid() == jobpost.getCareer()&&listAllJobPost.get(i).getLocationid()==jobpost.getLocation()) {
-						listSearchJobpost.add(listAllJobPost.get(i));
-					}
-					else if(listAllJobPost.get(i).getCareerid() == jobpost.getCareer() && jobpost.getLocation()==0){
-						listSearchJobpost.add(listAllJobPost.get(i));
-					}
-					else if(jobpost.getCareer()==0&&listAllJobPost.get(i).getLocationid()==jobpost.getLocation()){
-						listSearchJobpost.add(listAllJobPost.get(i));
-					}
+			if(jobpost.getJobName().equals("")) {
+				if(jobpost.getCareer() != 0 && jobpost.getLocation() != 0) {
+					sql = "SELECT * FROM job_posts j join recruiter r on r.email = j.email where locationid=" + jobpost.getLocation() + " and carrerid = " + jobpost.getCareer() + " AND status = 1";
+				}
+				else if (jobpost.getCareer() == 0 && jobpost.getLocation() != 0) {
+					sql = "SELECT * FROM job_posts j join recruiter r on r.email = j.email where locationid=" + jobpost.getLocation() + " AND status = 1";
+				}
+				else if (jobpost.getCareer() != 0 && jobpost.getLocation() == 0) {
+					sql = "SELECT * FROM job_posts j join recruiter r on r.email = j.email where carrerid=" + jobpost.getCareer() + " AND status = 1";
+				}
+				else if (jobpost.getCareer() == 0 && jobpost.getLocation() == 0) {
+					sql = "SELECT * FROM job_posts j join recruiter r on r.email = j.email where status = 1";
 				}
 			}
-			else{
-				for(int i=0;i<listAllJobPost.size();i++){
-					if(jobpost.getJobName().equals(listAllJobPost.get(i).getJobName())){
-						if(jobpost.getCareer()==0 && jobpost.getLocation()==listAllJobPost.get(i).getLocationid()){
-							listSearchJobpost.add(listAllJobPost.get(i));	
-						}
-						else if(jobpost.getCareer()==listAllJobPost.get(i).getCareerid()&&jobpost.getLocation()==0){
-							listSearchJobpost.add(listAllJobPost.get(i));
-						}
-						else if(jobpost.getCareer()==0&&jobpost.getLocation()==0){
-							listSearchJobpost.add(listAllJobPost.get(i));
-						}
-						else if(jobpost.getCareer()==listAllJobPost.get(i).getCareerid()&&jobpost.getLocation()==listAllJobPost.get(i).getLocationid()){
-							listSearchJobpost.add(listAllJobPost.get(i));
-						}
-					}
-					else{
-						if (listAllJobPost.get(i).getCareerid() == jobpost.getCareer() && listAllJobPost.get(i).getLocationid()==jobpost.getLocation()) {
-							listSearchJobpost.add(listAllJobPost.get(i));
-						}
-						else if(listAllJobPost.get(i).getCareerid() == jobpost.getCareer() && jobpost.getLocation()==0){
-							listSearchJobpost.add(listAllJobPost.get(i));
-						}
-						else if(jobpost.getCareer()==0 && listAllJobPost.get(i).getLocationid()==jobpost.getLocation()){
-							listSearchJobpost.add(listAllJobPost.get(i));
-						}
-					}
+			else {
+				String a = " AND job_name = '" + jobpost.getJobName() + "' AND status = 1";
+				if(jobpost.getCareer() != 0 && jobpost.getLocation() != 0) {
+					sql = "SELECT * FROM job_posts j join recruiter r on r.email = j.email where locationid=" + jobpost.getLocation() + " and carrerid = " + jobpost.getCareer() + a;
 				}
+				else if (jobpost.getCareer() == 0 && jobpost.getLocation() != 0) {
+					sql = "SELECT * FROM job_posts j join recruiter r on r.email = j.email where locationid=" + jobpost.getLocation() + a;
+				}
+				else if (jobpost.getCareer() != 0 && jobpost.getLocation() == 0) {
+					sql = "SELECT * FROM job_posts j join recruiter r on r.email = j.email where carrerid=" + jobpost.getCareer() + a;
+				}
+				else if (jobpost.getCareer() == 0 && jobpost.getLocation() == 0) {
+					sql = "SELECT * FROM job_posts j join recruiter r on r.email = j.email" + a;
+				}
+			}
+			System.out.println(sql);
+
+			resultset = resultset(sql);
+			while(resultset.next()) {
+				postsId = resultset.getInt("posts_id");
+				jobName = resultset.getString("job_name");
+				jobPosition = resultset.getString("job_position");
+				jobDescription = resultset.getString("job_description");
+				jobRecruitment = resultset.getString("job_recruitment");
+				salary = resultset.getString("salary");
+				benefit = resultset.getString("benafit");
+				otherInformation = resultset.getString("other_infor");
+				location = resultset.getInt("locationid");
+				postDate = resultset.getString("date");
+				companyName = resultset.getString("company_name");
+				companyAddress = resultset.getString("company_address");
+				companyPhone = resultset.getString("company_phone");
+				postsStatus = resultset.getInt("status");
+				username = resultset.getString("email");
+				careerId = resultset.getInt("carrerid");
+				JobPostInf jobPostInf = new JobPostInf(postsId, benefit, careerId, postDate, jobDescription, jobName, jobPosition, companyAddress, location, otherInformation, salary, username, postsStatus, companyName, companyAddress, companyPhone);
+				listSearchJobpost.add(jobPostInf);
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		} finally {
-
+			finallyConnect(resultset);
 		}
 		return listSearchJobpost;
 
@@ -230,7 +237,7 @@ public class UserPower extends ConnectDataBase implements InterfaceUser {
 
 	@Override
 	public boolean registryJobPost(String email, int potsid) {
-		String test = "SELECT * FROM jobseeker_his WHERE email = '" + email +"' AND postsid = " +potsid ;
+		String test = "SELECT * FROM jobseeker_his WHERE email = '" + email +"' AND postid = " +potsid ;
 		String sql = "INSERT INTO jobseeker_his(email,postid,status) VALUES('" + email + "'," + potsid + ",'DANG DUYET')" ;
 		try {
 			resultset = resultset(test);
@@ -277,6 +284,92 @@ public class UserPower extends ConnectDataBase implements InterfaceUser {
 			e.printStackTrace();
 		}
 		return list;
+	}
+
+	@Override
+	public List<JobseekerHis> getHistoryRegis(String username) {
+		ArrayList<JobseekerHis> l =new ArrayList<>();
+		try {
+			String status = "";
+			String feedback = "";
+			int id = 0;
+			String sql = "Select * from jobseeker_his where email = '" + username +"'";
+			resultset = resultset(sql);
+			while(resultset.next()) {
+				id = resultset.getInt("postid");
+				status = resultset.getString("status");
+				feedback = resultset.getString("feedback");
+				l.add(new JobseekerHis(username, id, status, feedback));
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		finally {
+			finallyConnect(resultset);
+		}
+		// TODO Auto-generated method stub
+		return l;
+	}
+
+	@Override
+	public List<JobPostInf> getListJobConfirm() {
+		try {
+			listAll = new ArrayList<>();
+			String jobName, jobPosition, jobDescription, jobRecruitment, salary, benefit, otherInformation, postDate,
+			companyName, username, companyAddress, companyPhone;
+			int postsId, postsStatus, careerId, location;
+			String sql = "SELECT * FROM job_posts j join recruiter r on r.email = j.email where status = 0";
+			resultset = resultset(sql);
+			while(resultset.next()) {
+				postsId = resultset.getInt("posts_id");
+				jobName = resultset.getString("job_name");
+				jobPosition = resultset.getString("job_position");
+				jobDescription = resultset.getString("job_description");
+				jobRecruitment = resultset.getString("job_recruitment");
+				salary = resultset.getString("salary");
+				benefit = resultset.getString("benafit");
+				otherInformation = resultset.getString("other_infor");
+				location = resultset.getInt("locationid");
+				postDate = resultset.getString("date");
+				companyName = resultset.getString("company_name");
+				companyAddress = resultset.getString("company_address");
+				companyPhone = resultset.getString("company_phone");
+				postsStatus = resultset.getInt("status");
+				username = resultset.getString("email");
+				careerId = resultset.getInt("carrerid");
+				JobPostInf jobPostInf = new JobPostInf(postsId, benefit, careerId, postDate, jobDescription, jobName, jobPosition, companyAddress, location, otherInformation, salary, username, postsStatus, companyName, companyAddress, companyPhone);
+				listAll.add(jobPostInf);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		finally {
+			finallyConnect(resultset);
+		}
+		return listAll;
+	}
+
+	@Override
+	public boolean confirm(int postid, String username) {
+		try {
+			String sql = "select * from job_posts where posts_id = " + postid ;
+			resultset = resultset(sql);
+			if(resultset.next()) {
+				String update = "UPDATE job_posts set status = 1 where posts_id = " + postid;
+				String insert = "insert into admin_his (email,postid) values ('" + username + "'," +postid + ")";
+				statement.executeUpdate(update);
+				statement.executeUpdate(insert);
+			}
+			else
+				return false;
+		} catch (Exception e) {
+			// TODO: handle exception
+			return false;
+		}
+		finally {
+			finallyConnect(resultset);
+		}
+		return true;
 	}
 
 }
