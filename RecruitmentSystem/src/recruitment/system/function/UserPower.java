@@ -47,7 +47,7 @@ public class UserPower extends ConnectDataBase implements InterfaceUser {
 			ps.setString(6, jobpost.getBenefit());
 			ps.setString(7, jobpost.getOtherInfor());
 			ps.setString(8, jobpost.getDate());
-			ps.setInt(9, jobpost.getStatus());
+			ps.setInt(9, 0);
 			ps.setInt(10, jobpost.getCareerid());
 			ps.setInt(11, jobpost.getLocationid());
 			ps.setString(12, jobpost.getUsername());
