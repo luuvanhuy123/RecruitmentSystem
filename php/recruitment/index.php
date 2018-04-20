@@ -194,22 +194,25 @@
 		<h2 id="info">KẾT QUẢ TÌM KIẾM: <?php echo count($array);?></h2>
 	</div>
 		<div id="main">
-			<form action="jobdetail.php" method="POST">
+			<form id="form" action="jobdetail.php" method="POST">
 				<ul>
 				<?php
 					foreach ($array as $a ) {
 				?>
-					<li>
-						<input type="hidden" name="postId" value="<?php echo $a['postsId']; ?>">
+							<li>
+							<input type="hidden" name="postId" value="<?php echo $a['postsId']; ?>">
 						<img src="images/avatar.png" height="80px" width="80px">
 						<h1 style="text-decoration: underline;"><?php echo $a['jobName']; ?></h1>
-						<p><?php echo $a['company_name'];?></p>
-						<p id="address" style="opacity: 0.7">Khu Vực: <?php echo $a['company_addres']; ?></p><b class="tab"> | </b>
+						<p id="company"><?php echo $a['company_name'];?></p>
+						<div id="as">
+							<p id="address" style="opacity: 0.7">Khu Vực: <?php echo $a['company_addres']; ?></p><b class="tab"> | </b>
 						<p id="status"> Đã Đăng: <?php echo $a['date'];?></p>
 						<button id="chitiet" onclick="jobdetail()">CHI TIẾT</button>
-					</li>
+						</li>					
 				<?php }
 				?>
+						</div>
+						
 				</ul>
 			</form>
 		</div>

@@ -5,6 +5,8 @@ body{
 	margin:0px auto
 }
 .menu{
+	margin: -30px 0px 0px 0px;
+	position: fixed;
 	background: #D8D8D8;
 	height: 30px;
 	width: 100%;
@@ -29,7 +31,7 @@ body{
 	border-width: 1px;
 }
 #searchBar{
-	margin: -11px 0px 0px 0px;
+	margin: 30px 0px 0px 0px;
 	background-image: url("../images/search.jpg");
 	height: 70px;
 	width: 100%;
@@ -37,7 +39,7 @@ body{
 }
 #searchBar .form{
         border: none;
-        padding: 20px 32px;
+        padding: 14px 32px;
         text-decoration: none;
         margin: 11px 0px;
         cursor: pointer;
@@ -68,39 +70,52 @@ li{
 }
 #countInfo{
 	text-align: center;
-	margin: -16px 0px -18px 0px;
-	background-image: url("../images/count.png");
+	margin:0px auto;
+	background-image: url("../images/search.jpg");
 	height: 30px;
-	border-bottom: 1px solid #ccc;
-
+	color: #E6E6E6;
+/* 	border-bottom: 1px solid #ccc;
+ */
 }
 #countInfo #info{
 	padding: 5px 0px 0px 0px;
+	margin: 0px auto;
 }
 #main{
-	background: #0B4C5F;
+	margin: -13px auto;
+		background: #58ACFA;
 }
 #main ul{
-	background: #F2F2F2;
-	margin: 0px 0px 0px 0px;
+	padding-top: 2px;
 }
 #main ul li{
-margin: 0px 0px -9px -37px	;
-border-bottom: 1px solid #ccc;
+background: #A9D0F5;
+margin: 0px 15px -9px -25px;
+height: 130px;
+border-radius: 5px;
 }
 #main ul li h1{
+	padding:8px 0px 10px 0px;
 	margin: 18px 0px 0px 73px;
 }
 #main ul li img{
-	margin: 0px 15px 0px 6px;
+
+	margin: 8px 15px 0px 15px;
 	float: left;
+}
+#main ul li #company{
+	margin:-5px 0px 0px 0px
+}
+
+#main ul li #as{
+	margin:-5px 0px 0px 110px;
 }
 #main ul li #address{
 	margin: 0px 12px 0px 0px;
 	float: left;
 }
 #main ul li #status{
-	margin: 14px 0px 0px 170px;
+	margin: 14px 0px 0px 110px;
 }
 #main ul li .tab{
 	float: left;
@@ -110,7 +125,7 @@ border-bottom: 1px solid #ccc;
 	margin: 0px 10px 0px 0px
 }
 #main ul li #chitiet{
-	margin: 0px 0px 0px 18px;
+	margin: 15px 0px 0px -85px;
 }
 #footer{
 	height: 50px;
