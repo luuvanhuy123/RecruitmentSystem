@@ -10,7 +10,7 @@ public class Query {
 		return update;
 	}
 	public String getAllJobPost(){
-		return "Select * from job_posts j join recruiter r on j.email = r.email where status  = 0";
+		return "{Call getAllJobPost()}";
 	}
 	public String getAllManager(){
 		return "{Call getAllManager()}";
