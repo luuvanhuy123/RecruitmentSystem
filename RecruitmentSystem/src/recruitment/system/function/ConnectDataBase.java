@@ -10,9 +10,9 @@ import java.sql.PreparedStatement;
 
 public class ConnectDataBase {
 	private final String classname = "com.mysql.jdbc.Driver";
-	private final String urlDataBase = "jdbc:mysql://171.244.40.133:1997/recruitmentsystemdb";
+	private final String urlDataBase = "jdbc:mysql://localhost:3306/recruitmentsystemdb";
 	private final String usernameDB = "root";
-	private final String passwordDB = "1997";
+	private final String passwordDB = "";
 	protected Connection connection = null;
 	protected Statement statement = null;
 	protected ResultSet resultset = null;

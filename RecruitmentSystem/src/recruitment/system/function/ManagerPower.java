@@ -268,7 +268,7 @@ public class ManagerPower extends ConnectDataBase implements interfaceManager {
 	}
 
 	@Override
-	public int statisticsJobpost(JobPost jobpost) {
+	public int statisticsJobpost() {
 		// TODO Auto-generated method stub
 		return 0;
 	}

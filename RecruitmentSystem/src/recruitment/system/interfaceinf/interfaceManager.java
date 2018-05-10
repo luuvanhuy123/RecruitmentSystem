@@ -44,7 +44,7 @@ public interface interfaceManager {
 	public abstract int statisticsUser();
 
 	// Statistics Quantity Job Post By AnyThing In Table DataBase Job Post
-	public abstract int statisticsJobpost(JobPost jobpost); //example: job_name,job_position,location,datetime,username,posts_type
+	public abstract int statisticsJobpost(); //example: job_name,job_position,location,datetime,username,posts_type
 
 	// Statistics Quantity Admin In Table DataBase Admin
 	public abstract int statisticsAdmin();

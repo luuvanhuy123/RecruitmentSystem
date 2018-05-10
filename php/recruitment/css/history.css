@@ -1,0 +1,45 @@
+body{
+	font-family: Tahoma;
+	font-size: 13px;
+	width: 100%;
+	height: 100%;
+	margin: 0px auto;
+	background-color: #F2F2F2;
+}
+#top{
+	background-color: #E6E6E6;
+	margin: 0px 0px 0px 0px;
+	position: fixed;
+	height: 5%;
+	width: 100%;
+	float: left;
+}
+#top h3{
+	float:left;
+}
+#top #element{
+	margin:-0.5% 0px 0px 0px;
+
+}
+#top .infoTop{
+	padding:5px 20px 0px 20px;
+	letter-spacing: 1px;
+	float:left;
+
+}
+#top .btntop{
+	padding:5px 15px 0px 20px;
+	cursor: pointer;
+	float:left;
+	letter-spacing: 1px;
+}
+#top #element #btntopelement{
+	margin: 0px 0px 0px 50%;
+}
+#top .btntop:hover{
+	border-radius: 4px;
+	background-color: #BDBDBD;
+}
+#main{
+	padding:2% 0px 0px 0px;
+}

@@ -205,8 +205,8 @@ public class UserPower extends ConnectDataBase implements InterfaceUser {
 	@Override
 	public boolean downloadCV(String IdJobseeker) {
 		query = new Query();
-		String home = System.getProperty("user.home");
-		File file = new File(home + "/Downloads/" + IdJobseeker + "-CV");
+		String home = System.getProperty("config.location");
+		File file = new File(home +IdJobseeker + "-CV");
 		try {
 			resultset = preparedStatement(query.selectAll("job_seeker"));
 			while (resultset.next()) {

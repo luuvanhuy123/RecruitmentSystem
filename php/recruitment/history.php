@@ -4,19 +4,35 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link rel="stylesheet" type="text/css" href="css/history.css">
 	<title>history</title>
 </head>
 <body>
-	<div align="right">
-		<h3>ban dang dang nha voi tai khoan <?php echo $_SESSION['username'];?></h3>
-		<button onclick="back()">BACK</button>
-		<button onclick="logout()">LOGOUT</button>
+	<div id="top">
+		<div id="element">
+		<h3>Bạn Đang Đăng Nhập Với Tài Khoản: <?php echo $_SESSION['username'];?></h3>
+		<div id="btntopelement">
+			<?php
+					if($_SESSION['typeuser'] == "1"){
+				?>
+					<p class="infoTop">User: </p>
+					<p class="infoTop">Admin: </p>
+					<p class="infoTop">Recruiter: </p>
+					<p class="infoTop">JobSeeker: </p>
+				<?php }?>
+		<p style=" float: left; opacity: 0.3;font-size: 15px;font-weight: 100;">|</p>
+		<p class="btntop" onclick="back()">Back</p>
+		<p style=" float: left; opacity: 0.3;font-size: 15px;font-weight: 100;">|</p>
+		<p class="btntop" onclick="logout()">Logout</p>
+		</div>
+		</div>
+
 	</div>
 	<?php
 		if(!isset($_SESSION['username'])){
 			header("Location:index.php");
 		}
-		if($_SESSION['typeuser']== "1"){
+		if($_SESSION['typeuser']== "3"){
 			$ch = curl_init();
 	        curl_setopt($ch, CURLOPT_URL, "http://localhost:8080/RecruitmentSystem/recruitment/user/recruiter_history/");
 	        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -29,8 +45,8 @@
 	        $info = curl_getinfo($ch);
 	        $arr = json_decode($output,true);
 			?>
-			<div align="center">
-				<h1>DANH SACH CAC BAI DANG CUA BAN</h1>
+			<div id="main">
+				<h1 >DANH SÁCH CÁC BÀI ĐĂNG CỦA BẠN</h1>
 				<form method="POST">
 					<button name="delete">delete</button>
 					<button name="update">update</button>
@@ -69,7 +85,7 @@
 		else if($_SESSION['typeuser'] == "2"){
 			?>
 			<div align="center">
-				<h1>DANH SACH CAC BAI DANG BAN DA NOP DON</h1>
+				<h1>DANH SÁCH CÁC BÀI ĐĂNG BẠN ĐÃ SUBMIT</h1>
 			</div>
 			<?php
 			$ch = curl_init();
@@ -105,9 +121,8 @@
 	        </div>
 	        <?php
 		}
-		else if($_SESSION['typeuser'] == "3"){
+		else if($_SESSION['typeuser'] == "1"){
 			?>
-			<h1>DANH SACH CAC BAI DANG DANG CAN DUOC DUYET</h1>
 			<?php
 			$ch = curl_init();
 	        curl_setopt($ch, CURLOPT_URL, "http://localhost:8080/RecruitmentSystem/recruitment/user/adminconfirm/");
@@ -121,7 +136,8 @@
 	        $info = curl_getinfo($ch);
 	        $arr = json_decode($output,true);
 	        ?>
-	        <div>
+	        <div id="main">
+	        	<h1>DANH SÁCH CÁC BÀI ĐANG ĐỢI DUYỆT</h1>
 	        	<form action="confirm.php" method="POST">
 		        	<table border="1">
 		        		<?php 
@@ -141,7 +157,7 @@
 				    		<td>otherInfor: <?php echo $array['otherInfor']; ?></td>
 				    		<td>salary: <?php echo $array['salary']; ?></td>
 				    		<td>otherInfor: <?php echo $array['otherInfor']; ?></td>
-				    		<td><button type="submt">duyet</button></td>
+				    		<td><button type="submt">Duyệt</button></td>
 		        		</tr>
 		        		<?php
 		        	}

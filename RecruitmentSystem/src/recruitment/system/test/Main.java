@@ -38,9 +38,9 @@ public class Main {
 //		JobPost jp=new JobPost("1",(byte)8);
 //		System.out.println(user.changeStatus_Jobpost(jp));
 ////		/*test function get All List Admin,JobSeeker,Recruiter*/
-		System.out.println(new ManagerPower().getAllManager());
-		System.out.println(new ManagerPower().getAllJobSeeker());
-		System.out.println(new ManagerPower().getAllRecruiter());
+//		System.out.println(new ManagerPower().getAllManager());
+//		System.out.println(new ManagerPower().getAllJobSeeker());
+//		System.out.println(new ManagerPower().getAllRecruiter());
 		
 //		Admin admin=new Admin();
 //		admin.setEmail("admin");
@@ -53,7 +53,7 @@ public class Main {
 //		r1.setEmail("recruiter");
 //		System.out.println(new ManagerPower().searchRecruiter(r1));
 //		admin.setEmail("khanhtuan623@gmail.com");
-		System.out.println(new ManagerPower().statisticsUser());
+//		System.out.println(new ManagerPower().statisticsUser());
 //		System.out.println(new ManagerPower().statisticsAdmin());
 //		System.out.println(new ManagerPower().statisticsJobSeeker());
 //		System.out.println(new ManagerPower().statisticsRecruiter());
@@ -81,6 +81,10 @@ public class Main {
 //		System.out.println(new UserPower().jobPost(new JobPost("java", "develop", "back-end", "java ee", "10tr - 20tr",
 //				"thoa thuan", "none", "208", 0,1, 1,"admin")));
 		//System.out.println(new UserPower().registryJobPost("admin", 4));
+		System.out.println(new ManagerPower().statisticsRecruiter());
+		System.out.println(new ManagerPower().statisticsAdmin());
+		System.out.println(new ManagerPower().statisticsJobSeeker());
+		System.out.println(new ManagerPower().statisticsUser());
 	}
 
 }

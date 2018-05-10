@@ -44,5 +44,37 @@ public class ServicesManager  {
 		ManagerPower listR=new  ManagerPower();
 		return listR.getAllRecruiter();
 	}
-
+	
+	@POST
+	@Path("/statisticsRecruiter")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.APPLICATION_JSON)
+	public int statisticsRecruiter() {
+		ManagerPower listR=new  ManagerPower();
+		return listR.statisticsRecruiter();
+	}
+	@POST
+	@Path("/statisticsAdmin")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.APPLICATION_JSON)
+	public int statisticsAdmin() {
+		ManagerPower listR=new  ManagerPower();
+		return listR.statisticsAdmin();
+	}
+	@POST
+	@Path("/statisticsJobSeeker")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.APPLICATION_JSON)
+	public int statisticsJobSeeker() {
+		ManagerPower listR=new  ManagerPower();
+		return listR.statisticsJobSeeker();
+	}
+	@POST
+	@Path("/statisticsUser")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.APPLICATION_JSON)
+	public int statisticsUser() {
+		ManagerPower listR=new  ManagerPower();
+		return listR.statisticsUser();
+	}
 }

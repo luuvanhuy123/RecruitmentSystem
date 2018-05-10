@@ -18,7 +18,7 @@
 				<?php echo $_SESSION['username']?> <b class="tab"> | </b>
 			<a class="menuH" onclick="history()">QUẢN LÝ TÀI KHOẢN</a>
 				<?php
-					if($_SESSION['typeuser'] == "1"){
+					if($_SESSION['typeuser'] == "1" || $_SESSION['typeuser'] == "3"){
 				?><b class="tab"> | </b>
 					<a class="menuH" onclick="postjob()">ĐĂNG BÀI</a>
 				<?php }?><b class="tab"> | </b>
@@ -199,13 +199,13 @@
 				<?php
 					foreach ($array as $a ) {
 				?>
-							<li>
-							<input type="hidden" name="postId" value="<?php echo $a['postsId']; ?>">
+					<li>
+						<input type="hidden" name="postId" value="<?php echo $a['postsId']; ?>">
 						<img src="images/avatar.png" height="80px" width="80px">
 						<h1 style="text-decoration: underline;"><?php echo $a['jobName']; ?></h1>
 						<p id="company"><?php echo $a['company_name'];?></p>
 						<div id="as">
-							<p id="address" style="opacity: 0.7">Khu Vực: <?php echo $a['company_addres']; ?></p><b class="tab"> | </b>
+						<p id="address" style="opacity: 0.7">Khu Vực: <?php echo $a['company_addres']; ?></p><b class="tab"> | </b>
 						<p id="status"> Đã Đăng: <?php echo $a['date'];?></p>
 						<button id="chitiet" onclick="jobdetail()">CHI TIẾT</button>
 						</li>					
