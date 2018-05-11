@@ -36,7 +36,7 @@
 		        else{
 		        			        	?>
 		        	<script >
-		        		alert("ban da dang ki bai dang nay roi");
+		        		alert("damg ki thanh cong");
 		        		window.location = "index.php";
 		        	</script>
 		        	<?php

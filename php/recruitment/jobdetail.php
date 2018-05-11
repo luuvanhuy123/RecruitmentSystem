@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link rel="stylesheet" type="text/css" href="css/tab.css">
 	<title>job detail</title>
 </head>
 <body>
@@ -12,20 +13,22 @@
 			header("Location:index.php");
 		}
 		else{
-			if(isset($_POST['postId'])){
+			if(isset($_POST['detail'])){
+				echo $_POST['detail'];
 			$ch = curl_init();
 	        curl_setopt($ch, CURLOPT_URL, "http://localhost:8080/RecruitmentSystem/recruitment/user/jobdetail/");
 	        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	        curl_setopt($ch, CURLOPT_POST, 1);
 	        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded')); // In Java: @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 
-	        $data = array('postformId'=>$_POST['postId']);
+	        $data = array('postformId'=>$_POST['detail']);
 	        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
 	        $output = curl_exec($ch);
 	        $info = curl_getinfo($ch);
 	        $array = json_decode($output,true);
 	    ?>
-	    	<ul>
+<ul>
+
 	    		<li>company_name: <?php echo $array['company_name']; ?></li>
 	    		<li>company_addres: <?php echo $array['company_addres']; ?></li>
 	    		<li>company_phone: <?php echo $array['company_phone']; ?></li>
@@ -39,12 +42,13 @@
 	    		<li>salary: <?php echo $array['salary']; ?></li>
 	    		<li>otherInfor: <?php echo $array['otherInfor']; ?></li>
 	    	</ul>
+	    </div>
 	    	<form action="regis.php" method="POST">
 	    		<input type="hidden" name="id" value="<?php echo $array['postsId'] ?>">
-	    		<button type="submit">dang ki</button>
+	    		<button type="submit">Nộp Đơn</button>
 
 	    	</form>
-	    		<button onclick="back()">quay lai</button>
+	    		<button onclick="back()">Quay Lại</button>
 	    <?php
 	    }
 	}
@@ -53,6 +57,5 @@
 		function back(){
 			window.location = "index.php";
 		}
-	</script>
 </body>
 </html>

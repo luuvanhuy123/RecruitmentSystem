@@ -51,14 +51,12 @@ public class LoginProcess extends ConnectDataBase implements SignInterface{
 				if(resultset.getString("username").equals(jobSeeker.getEmail()))
 					return false;
 				else {
-					statement.executeUpdate("insert into user values ('" + jobSeeker.getEmail() + "','" + jobSeeker.getUser().getPassword()+"')");
-					statement.executeUpdate("insert into user_role values ('"+ jobSeeker.getEmail() + "',3)");
+					statement.executeUpdate("insert into user values ('" + jobSeeker.getEmail() + "','" + jobSeeker.getUser().getPassword()+"',2)");
 					statement.executeUpdate("insert into job_seeker (email,name) values ('"+jobSeeker.getEmail() + "','" + jobSeeker.getName() +"')");
 					return true;
 					}
 				}
-			statement.executeUpdate("insert into user values ('" + jobSeeker.getEmail() + "','" + jobSeeker.getUser().getPassword()+"')");
-			statement.executeUpdate("insert into user_role values ('"+ jobSeeker.getEmail() + "',3)");
+			statement.executeUpdate("insert into user values ('" + jobSeeker.getEmail() + "','" + jobSeeker.getUser().getPassword()+"',2)");
 			statement.executeUpdate("insert into job_seeker (email,name) values ('"+jobSeeker.getEmail() + "','" + jobSeeker.getName() +"')");
 			return true;
 		} catch (Exception e) {
@@ -87,15 +85,13 @@ public class LoginProcess extends ConnectDataBase implements SignInterface{
 				if(resultset.getString("username").equals(username))
 					return false;
 				else {
-					statement.executeUpdate("insert into user values ('" + username + "','" + password+"')");
-					statement.executeUpdate("insert into user_role values ('"+ username + "',4)");
-					statement.executeUpdate("insert into recruiter values ('"+username + "','" + name +"','" + sex + "','" + address +"','" + company_name + "','"  + company_phone+"','" + company_information + "','"+ company_address + "')");
+					statement.executeUpdate("insert into user values ('" + username + "','" + password+"',1)");
+					statement.executeUpdate("insert into recruiter values ('"+username + "','" + name +"','" + sex + "','" + address +"','" + company_name + "','"  + company_address+"','" + company_phone + "','"+ company_information + "')");
 					return true;
 					}
 				}
-			statement.executeUpdate("insert into user values ('" + username + "','" + password+"')");
-			statement.executeUpdate("insert into user_role values ('"+ username + "',4)");
-			statement.executeUpdate("insert into recruiter values ('"+username + "','" + name +"','" + sex + "','" + address +"','" + company_name + "','"  + company_phone+"','" + company_information + "','"+ company_address + "')");
+			statement.executeUpdate("insert into user values ('" + username + "','" + password+"',1)");
+			statement.executeUpdate("insert into recruiter values ('"+username + "','" + name +"','" + sex + "','" + address +"','" + company_name + "','"  + company_address+"','" + company_phone + "','"+ company_information + "')");
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -120,14 +116,12 @@ public class LoginProcess extends ConnectDataBase implements SignInterface{
 				if(resultset.getString("username").equals(username))
 					return false;
 				else {
-					statement.executeUpdate("insert into user values ('" + username + "','" + password+"')");
-					statement.executeUpdate("insert into user_role values ('"+ username + "',1)");
+					statement.executeUpdate("insert into user values ('" + username + "','" + password+"',3)");
 					statement.executeUpdate("insert into admin values ('"+username + "','" + name +"','" + sex + "','" + address +"','" + phone_number + "')");
 					return true;
 					}
 				}
-			statement.executeUpdate("insert into user values ('" + username + "','" + password+"')");
-			statement.executeUpdate("insert into user_role values ('"+ username + "',1)");
+			statement.executeUpdate("insert into user values ('" + username + "','" + password+"',3)");
 			statement.executeUpdate("insert into admin values ('"+username + "','" + name +"','" + sex + "','" + address +"','" + phone_number + "')");
 			return true;
 		} catch (Exception e) {

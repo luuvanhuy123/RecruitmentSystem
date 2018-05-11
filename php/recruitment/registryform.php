@@ -1,87 +1,70 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>registry form</title>
+    <title></title>
+       <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 </head>
 <body>
-	<div>
-		<form method="POST" id="registryform">
-			<button type="submit" name="jobseeker">JOB SEEKER</button>
-			<button type="submit" name="recruiter">RECRUITER</button>
-		</form>
-	</div>
-	<?php
-	if (isset($_POST['jobseeker'])) {?>
-		<script>
-          var child = document.getElementById("registryform");
-          child.parentNode.remove(child);
-        </script>
-        <h2>NHAP THONG VAO FORM BEN DUOI</h2>
-        <form method="POST">
-        	USERNAME: <input type="text" name="username"><br/>
-			PASSWORD: <input type="password" name="password"><br/>
-			PASSWORD: <input type="password" name="password1"><br/>
-			<button type="submit" name="post">REGISTRY</button>
-        </form>
-	<?php
-		if(isset($_POST['post'])){
-	     	$ch = curl_init();
-	        curl_setopt($ch, CURLOPT_URL, "http://localhost:8080/bookStore/book/Services/Buy/");
-	        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	        curl_setopt($ch, CURLOPT_POST, 1);
-	        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded')); // In Java: @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	        $data = array('username'=>$_SESSION['username'],'book_ID'=>$_POST['book_ID'],'date_buy'=>$date);
-	        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
-	        $output = curl_exec($ch);
-	        $info = curl_getinfo($ch);
-	        curl_close($ch);
-	        if ($output=="2") {
-	        	# code...
-	        }
-	        else{
-	        	
-	        }
-		}
-	}
-	if(isset($_POST['recruiter'])){?>
-		<script>
-          var child = document.getElementById("registryform");
-          child.parentNode.remove(child);
-        </script>
-         <h2>NHAP THONG VAO FORM BEN DUOI</h2>
-        <form method="POST">
-        	NAME:<input type="text" name="name" required=""><br>
-        	email: <input type="text" name="email" required=""><br/>
-        	sex: <input type="" name="sex" required=""><br/>
-        	address:<input type="text" name="address" required=""><br/>
-        	company_name:<input type="text" name="company_name" required=""><br/>
-        	company_address:<input type="text" name="company_address" required=""><br/>
-        	company_phone: <input type="text" name="company_phone" required=""><br/>
-        	company_inf:<input type="text" name="company_inf" required=""><br/>
-			PASSWORD: <input type="password" name="password" required=""><br/>
-			PASSWORD: <input type="password" name="password1" required=""><br/>
-			<button type="submit" name="post">REGISTRY</button>
-        </form>
-     <?php
-     if(isset($_POST['post'])){
-     	$ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "http://localhost:8080/bookStore/book/Services/Buy/");
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded')); // In Java: @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-        $data = array('username'=>$_SESSION['username'],'book_ID'=>$_POST['book_ID'],'date_buy'=>$date);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
-        $output = curl_exec($ch);
-        $info = curl_getinfo($ch);
-        curl_close($ch);
-        if ($output=="1") {
-        	# code...
-        }
-        else{
+<!------ Include the above in your HEAD tag ---------->
 
+<div class="container" id="wrap">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <form  method="post" accept-charset="utf-8" class="form" role="form">   <legend>Sign Up</legend>
+                    <h4>It's free and always will be.</h4>
+                    <div class="row">
+                            <input type="text" name="name" value="" class="form-control input-lg" placeholder="Full name"  /> 
+                    <input type="text" name="email" value="" class="form-control input-lg" placeholder="Your Email"  />
+                    <input type="password" name="password" value="" class="form-control input-lg" placeholder="Password"  />
+                    <input type="password" name="confirm_password" value="" class="form-control input-lg" placeholder="Confirm Password"  />                                    <div class="row">
+                    
+                    </div>
+                     <label>Gender : </label>                    <label class="radio-inline">
+                        <input type="radio" name="gender" value="M" id=male />                        Male
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="gender" value="F" id=female />                        Female
+                    </label>
+                    <br />
+                    <button class="btn btn-lg btn-primary btn-block signup-btn" type="submit">
+                        Create my account</button>
+            </form>          
+             </div>
+        </div>            
+    </div>
+    </div>
+        <?php
+        if(isset($_POST['name']) && isset($_POST['password']) && isset($_POST['confirm_password']) && isset($_POST['email'])){
+            if($_POST['password'] == $_POST['confirm_password']){
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, "http://localhost:8080/RecruitmentSystem/recruitment/services/regsistryJobseeker/");
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_POST, 1);
+                curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded')); // In Java: @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+
+                $data = array('username'=>$_POST['email'],'password'=>$_POST['password'],'name'=>$_POST['name']);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+                $output = curl_exec($ch);
+                $info = curl_getinfo($ch);
+                if($output == "true"){
+                    ?>
+                    <script type="text/javascript">
+                         alert("dang ki thanh cong!");
+                        window.location = "index.php";
+                    </script>
+                    <?php
+                }
+                else{
+                    ?>
+                        <script type="text/javascript">
+                            alert("dang ki khong thanh cong!");
+                        </script>
+                    <?php
+                }
+            }
         }
-     }
-	}
-	?>
+          ?>
 </body>
 </html>

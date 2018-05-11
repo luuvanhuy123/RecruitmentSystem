@@ -21,4 +21,14 @@ public class Services {
 	public int login(@FormParam("username") String username, @FormParam("password") String password) {
 		return new LoginProcess().login(new User(username,password));
 	}
+	@POST
+	@Path("/regsistryJobseeker/")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.APPLICATION_JSON)
+	public boolean RegistryJobseeker(@FormParam("username") String username, @FormParam("password") String password , @FormParam("name") String name) {
+		JobSeeker j = new JobSeeker(username, name, new User(username, password));
+		if(new LoginProcess().signInJob_Seeker(j) == true)
+			return true;
+		return false;
+	}
 }

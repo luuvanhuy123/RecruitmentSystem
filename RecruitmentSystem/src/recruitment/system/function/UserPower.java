@@ -237,15 +237,13 @@ public class UserPower extends ConnectDataBase implements InterfaceUser {
 
 	@Override
 	public boolean registryJobPost(String email, int potsid) {
-		String test = "SELECT * FROM jobseeker_his WHERE email = '" + email +"' AND postid = " +potsid ;
-		String sql = "INSERT INTO jobseeker_his(email,postid,status) VALUES('" + email + "'," + potsid + ",'DANG DUYET')" ;
+		String sql = "INSERT INTO jobseeker_his(email,postid,status,feedback) VALUES('" + email + "'," + potsid + ",'DANG DUYET','')" ;
 		try {
-			resultset = resultset(test);
-			if(resultset != null)
-				return false;
+			System.out.println(sql);
 			executeUpdate(sql);
 		}
 		catch (Exception e) {
+			return false;
 		}
 		finally {
 			finallyConnect(resultset);
@@ -372,4 +370,47 @@ public class UserPower extends ConnectDataBase implements InterfaceUser {
 		return true;
 	}
 
+	@Override
+	public List<JobseekerHis> getListRegis(int id) {
+		List<JobseekerHis> l = new ArrayList<>();
+		System.out.println(id);
+		try {
+			String username = "";
+			String status = "";
+			String feedback = "";
+			int pid = 0;
+			String sql = "select * from jobseeker_his where status = 'DANG DUYET' AND postid = " + id ;
+			resultset = resultset(sql);
+			while(resultset.next()) {
+				username = resultset.getString("email");
+				pid = resultset.getInt("postid");
+				status = resultset.getString("status");
+				feedback = resultset.getString("feedback");
+				l.add(new JobseekerHis(username, pid, status, feedback));
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		finally {
+			finallyConnect(resultset);
+		}
+		return l;
+	}
+
+	@Override
+	public boolean connect(String username, int postid, String feedback) {
+		try {
+			String sql = "UPDATE jobseeker_his set feedback = '" + feedback +"', status = 'THANH CONG' where email = '" + username + "' AND postid = " + postid ;
+			System.out.println(sql);
+			executeUpdate(sql);
+		} catch (Exception e) {
+			// TODO: handle exception
+			return false;
+		}
+		finally {
+			finallyConnect(resultset);
+		}
+		return true;
+	}
+	
 }

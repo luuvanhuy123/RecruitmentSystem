@@ -29,4 +29,6 @@ public interface InterfaceUser {
 	// danh sach bai chua duoc duyet
 	public abstract List<JobPostInf> getListJobConfirm();
 	public abstract boolean confirm(int postid, String username);
+	public abstract List<JobseekerHis> getListRegis(int id);
+	public abstract boolean connect(String username, int postid, String feedback);
 }

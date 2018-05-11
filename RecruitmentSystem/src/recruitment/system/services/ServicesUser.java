@@ -12,6 +12,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.glassfish.hk2.api.ProxyForSameScope;
+
 import recruitment.system.entities.Admin;
 import recruitment.system.entities.JobPost;
 import recruitment.system.entities.JobPostInf;
@@ -79,6 +81,7 @@ public class ServicesUser extends UserPower {
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<JobseekerHis> jobseekerhis(@FormParam("username") String username) {
 		UserPower listJ=new UserPower();
+		System.out.println(username);
 		return listJ.getHistoryRegis(username);
 	}
 	@POST
@@ -107,6 +110,20 @@ public class ServicesUser extends UserPower {
 		};
 		return false;
 	}
-	
-
+	@POST
+	@Path("/listregis/")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<JobseekerHis> listregis(@FormParam("id") String id ){
+		UserPower listJ=new UserPower();
+		return listJ.getListRegis(Integer.parseInt(id));
+	}
+	@POST
+	@Path("/connect/")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.APPLICATION_JSON)
+	public boolean connect(@FormParam("username") String username, @FormParam("postid") String postid, @FormParam("feedback") String feedback ){
+		UserPower listJ=new UserPower();
+		return listJ.connect(username, Integer.parseInt(postid), feedback);
+	}
 }

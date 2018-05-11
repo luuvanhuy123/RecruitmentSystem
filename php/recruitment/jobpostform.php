@@ -4,9 +4,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link rel="stylesheet" type="text/css" href="css/table.css">
+
 	<title>post job</title>
 </head>
-<body>
+</body>
 	<?php
 	 if(!isset($_SESSION['username'])){
 	 	header("Location:index.php");
@@ -16,8 +18,8 @@
    			$date = date('m/d/Y h:i:s a', time());
 	 ?>
 	<div align="center">
-		<h2>XIN CHAO <?php echo $_SESSION['username']; ?></h2>
-		<h2>VUI LONG DIEN THONG TIN VAO FORM BEN DUOI</h2>
+		<h2>XIN CHÀO <?php echo $_SESSION['username']; ?></h2>
+		<h2>VUI LÒNG ĐIỀN THÔNG TIN VÀO FORM BÊN DƯỚI</h2>
 		<form method="POST">
 			<table cellpadding="5dp" cellspacing="20dp">
 				<tr>
@@ -30,11 +32,11 @@
 				</tr>
 				<tr>
 					<td>JOB DESCRIPTION: </td>
-					<td><input type="text" name="job_description" required=""></td>
+					<td><textarea cols="50" rows="10" name="job_description" required=""></textarea></td>
 				</tr>
 				<tr>
 					<td>JOB RECRUITMENT: </td>
-					<td><input type="text" name="job_recruitment" required=""></td>
+					<td><textarea cols="50" rows="10" name="job_recruitment" required=""></textarea></td>
 				</tr>
 				<tr>
 					<td>SALARY: </td>
@@ -46,7 +48,7 @@
 				</tr>
 				<tr>
 					<td>Other information: </td>
-					<td><input type="text" name="other_inf"></td>
+					<td><textarea cols="70" rows="15" name="other_inf"></textarea></td>
 				</tr>
 				<tr>
 					<td>CARRER: </td>

@@ -18,22 +18,37 @@
 				<?php echo $_SESSION['username']?> <b class="tab"> | </b>
 			<a class="menuH" onclick="history()">QUẢN LÝ TÀI KHOẢN</a>
 				<?php
-					if($_SESSION['typeuser'] == "1" || $_SESSION['typeuser'] == "3"){
+					if($_SESSION['typeuser'] == "1"){
 				?><b class="tab"> | </b>
 					<a class="menuH" onclick="postjob()">ĐĂNG BÀI</a>
-				<?php }?><b class="tab"> | </b>
+				<?php }?>
+				<?php
+				if($_SESSION['typeuser'] == "3"){
+		?>
+				<div id="footer">
+					<p>User: </p>
+					<b>  </b>
+					<p>Admin: </p>
+					<b>  </b>
+					<p>Recruiter: </p>
+					<b>  </b>
+					<p>JobSeeker: </p>
+				</div>
+		<?php }?>
+				<b class="tab"> | </b>
 			<a class="menuH" onclick="logout()">THOÁT</a>
 			</div>
 			
 		</div>
 		<?php
+
 	}
 	else{
 	?>
 	<div class="menu">
 		<div class="element">
 		<a class="menuH" name="login" onclick="loginProcess()">ĐĂNG NHẬP </a> <b class="tab"> | </b>
-		<a class="menuH" name="regisforjobseek">ĐĂNG KÝ</a><b class="tab"> |
+		<a class="menuH" name="regisforjobseek" href="registryform.php">ĐĂNG KÝ</a><b class="tab"> |
 		</b>
 		<a class="menuH" name="regisforrecruiter">ĐĂNG KÝ NHÀ TUYỂN DỤNG</a>
 		</div>
@@ -199,15 +214,14 @@
 				<?php
 					foreach ($array as $a ) {
 				?>
-					<li>
-						<input type="hidden" name="postId" value="<?php echo $a['postsId']; ?>">
+							<li>
 						<img src="images/avatar.png" height="80px" width="80px">
 						<h1 style="text-decoration: underline;"><?php echo $a['jobName']; ?></h1>
 						<p id="company"><?php echo $a['company_name'];?></p>
 						<div id="as">
-						<p id="address" style="opacity: 0.7">Khu Vực: <?php echo $a['company_addres']; ?></p><b class="tab"> | </b>
+							<p id="address" style="opacity: 0.7">Khu Vực: <?php echo $a['company_addres']; ?></p><b class="tab"> | </b>
 						<p id="status"> Đã Đăng: <?php echo $a['date'];?></p>
-						<button id="chitiet" onclick="jobdetail()">CHI TIẾT</button>
+						<button id="chitiet" name="detail" type="submit" value="<?php echo $a['postsId']; ?>">CHI TIẾT</button>
 						</li>					
 				<?php }
 				?>
@@ -216,6 +230,9 @@
 				</ul>
 			</form>
 		</div>
+		
+		
+
 		
 	<script type="text/javascript">
 		function loginProcess() {
@@ -239,7 +256,7 @@
 			<?php
 			if(!isset($_SESSION['username'])){
 			?>
-				alert("ban phai dang nhap truoc");
+				alert("Bạn Phải Đăng Nhập Trước");
 			<?php
 				}
 			?>

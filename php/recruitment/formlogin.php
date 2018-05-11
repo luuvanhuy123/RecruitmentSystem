@@ -74,7 +74,6 @@
                             Username / Password?
                         </a>
                     </div>
-
                     <div class="text-center p-t-136">
                         <a class="txt2" href="#">
                             Create your Account
@@ -123,7 +122,7 @@
         </script>
         <?php
         }
-        else
+        else{
 	       	$_SESSION['username']= $_POST['username'];
             $_SESSION['typeuser']= $output;
             ?>
@@ -132,6 +131,7 @@
         </script>
         <?php
         }
+    }
 	?>
 </div>
 </body>
