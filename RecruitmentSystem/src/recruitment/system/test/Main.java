@@ -85,6 +85,7 @@ public class Main {
 		System.out.println(new ManagerPower().statisticsAdmin());
 		System.out.println(new ManagerPower().statisticsJobSeeker());
 		System.out.println(new ManagerPower().statisticsUser());
+		System.out.println(new UserPower().jobPost(new JobPost("makerting", "nhan su", "Trên mỗi bản đồ đều có chữ ký của đại diện Văn phòng Kiến trúc sư trưởng, Sở Xây dựng, Viện Quy hoạch Xây dựng và thêm các cơ quan quản lý dự án.Khi được hỏi vì sao thành phố không còn cất giữ một bộ bản đồ nào, cựu Chủ tịch UBND TP.HCM cho hay không nắm được quy trình bảo quản hồ sơ, giấy tờ của các sở ngành vào thời điểm này.", "Trên mỗi bản đồ đều có chữ ký của đại diện Văn phòng Kiến trúc sư trưởng, Sở Xây dựng, Viện Quy hoạch Xây dựng và thêm các cơ quan quản lý dự án.Khi được hỏi vì sao thành phố không còn cất giữ một bộ bản đồ nào, cựu Chủ tịch UBND TP.HCM cho hay không nắm được quy trình bảo quản hồ sơ, giấy tờ của các sở ngành vào thời điểm này.", "100$", "100$", "Trên mỗi bản đồ đều có chữ ký của đại diện Văn phòng Kiến trúc sư trưởng, Sở Xây dựng, Viện Quy hoạch Xây dựng và thêm các cơ quan quản lý dự án.Khi được hỏi vì sao thành phố không còn cất giữ một bộ bản đồ nào, cựu Chủ tịch UBND TP.HCM cho hay không nắm được quy trình bảo quản hồ sơ, giấy tờ của các sở ngành vào thời điểm này.", "2018", 1, 1, 1, "admin")));
 	}
 
 }
